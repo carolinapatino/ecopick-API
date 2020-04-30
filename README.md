@@ -24,8 +24,10 @@
 ### Dependencias del proyecto
 
 - Express
+- Lob
 - dotenv
 - pg-promise
+- http-errors
 - moment
 - jwt-simple
 - body-parser
