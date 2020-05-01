@@ -24,4 +24,17 @@ module.exports = {
         return new Error(error);
       });
   },
+  getShipmentReceiver: function (con, trackingId) {
+    return con
+      .query(
+        `SELECT R.RE_identification, R.RE_first_name, R.RE_second_name,
+            R.RE_last_name, R.RE_second_last_name, R.RE_phone_number, R.RE_email
+          FROM MP_SHIPMENT S, MP_RECEIVER R
+          WHERE S.SH_FK_receiver = R.RE_id AND S.SH_tracking_id = $1;`,
+        [trackingId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };

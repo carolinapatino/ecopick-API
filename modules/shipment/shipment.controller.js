@@ -6,9 +6,11 @@ module.exports = {
     let [origin, destination, receiver] = await Promise.all([
       shipmentModel.getShipmentOrigin(req.con, req.params.trackingId),
       shipmentModel.getShipmentDestination(req.con, req.params.trackingId),
+      shipmentModel.getShipmentReceiver(req.con, req.params.trackingId),
     ]);
     res.json({
       route: { origin: origin, destination: destination },
+      receiver: receiver,
     });
   },
 };
