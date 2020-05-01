@@ -8,7 +8,8 @@ module.exports = {
         CONCAT (u.us_first_name, CONCAT (' ' , u.us_last_name))  AS User,
         CONCAT (r.re_first_name, CONCAT (' ', r.re_last_name)) AS Receiver
         FROM mp_shipment, mp_office o, mp_direction d, mp_user u, mp_receiver r 
-        WHERE sh_tracking_id=$1 and sh_fk_office_origin = o.of_id and sh_fk_direction_destination = d.di_id and sh_fk_user = u.us_id and sh_fk_receiver = r.re_id`,[id]
+        WHERE sh_tracking_id=$1 and sh_fk_office_origin = o.of_id and sh_fk_direction_destination = d.di_id and sh_fk_user = u.us_id and sh_fk_receiver = r.re_id`,
+        [id]
       )
       .catch((error) => {
         return new Error(error);

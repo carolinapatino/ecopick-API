@@ -12,7 +12,7 @@ module.exports = {
       next(createError(500, `${results.message}`));
     } else {
       logger.info({
-        message: `This is the detail of the shipment ${req.body.id}`,
+        message: `This is the detail of the shipment ${req.params.id}`,
       });
       res.json(results);
     }
