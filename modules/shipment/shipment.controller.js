@@ -3,14 +3,16 @@ const logger = require("../../logger");
 
 module.exports = {
   getInvoice: async function (req, res, next) {
-    let [origin, destination, receiver] = await Promise.all([
+    let [origin, destination, receiver, packages] = await Promise.all([
       shipmentModel.getShipmentOrigin(req.con, req.params.trackingId),
       shipmentModel.getShipmentDestination(req.con, req.params.trackingId),
       shipmentModel.getShipmentReceiver(req.con, req.params.trackingId),
+      shipmentModel.getShipmentPackages(req.con, req.params.trackingId),
     ]);
     res.json({
       route: { origin: origin, destination: destination },
       receiver: receiver,
+      packages: packages,
     });
   },
 };

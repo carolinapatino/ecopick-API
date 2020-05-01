@@ -92,6 +92,7 @@ CREATE TABLE MP_SHIPMENT (
   SH_tracking_id INTEGER NOT NULL,
   SH_shipment_date DATE NOT NULL,
   SH_estimated_date_of_arrival DATE,
+  SH_purpose VARCHAR,
   SH_total FLOAT NOT NULL,
   SH_qr_code VARCHAR,
   SH_FK_office_origin INTEGER NOT NULL,
@@ -122,6 +123,7 @@ CREATE TABLE MP_PACKAGE (
   PA_height FLOAT NOT NULL,
   PA_length FLOAT NOT NULL,
   PA_weight FLOAT NOT NULL,
+  PA_description VARCHAR,
   PA_cost FLOAT NOT NULL,
   PA_FK_shipment INTEGER NOT NULL
 );
