@@ -39,6 +39,9 @@ module.exports = {
         return;
       }
     }
+    logger.info(
+      `The invoice details for shipment ${req.params.trackingId} were successfully consulted`
+    );
     res.json({
       options: shipment_options,
       route: { origin: origin, destination: destination },
