@@ -40,9 +40,45 @@ module.exports = {
   getShipmentPackages: function (con, trackingId) {
     return con
       .query(
-        `SELECT P.PA_width, P.PA_height, P.PA_length, P.PA_weight, PA_description, P.PA_cost
+        `SELECT P.PA_id, P.PA_width, P.PA_height, P.PA_length, P.PA_weight, PA_description, P.PA_cost
           FROM MP_SHIPMENT S, MP_PACKAGE P
           WHERE S.SH_id = P.PA_FK_shipment AND S.SH_tracking_id = $1;`,
+        [trackingId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+  getPackageCharacteristics: function (con, packageId) {
+    return con
+      .query(
+        `SELECT C.CH_name, C.CH_charge, C.CH_charge_parameter
+          FROM MP_PAC_CHA PC, MP_CHARACTERISTIC C
+          WHERE C.CH_id = PC.PACH_FK_characteristic AND PC.PACH_FK_package = $1;`,
+        [packageId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+  getShipmentOptions: function (con, trackingId) {
+    return con
+      .query(
+        `SELECT O.OP_name, O.OP_charge, O.OP_charge_parameter
+          FROM MP_SHI_OPT SO, MP_OPTION O, MP_SHIPMENT S
+          WHERE O.OP_id = SO.SHOP_FK_option AND SO.SHOP_FK_shipment = S.SH_ID AND S.SH_tracking_id = $1;`,
+        [trackingId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+  getShipmentDiscounts: function (con, trackingId) {
+    return con
+      .query(
+        `SELECT D.DI_name, D.DI_percentage
+          FROM MP_DIS_USE DU, MP_DISCOUNT D, MP_SHIPMENT S
+          WHERE DU.DIUS_FK_shipment = S.SH_id AND DU.DIUS_FK_discount = D.DI_id AND S.SH_tracking_id = $1;`,
         [trackingId]
       )
       .catch((error) => {
