@@ -5,6 +5,6 @@ const auth = require("../../middleware/auth");
 
 module.exports = router;
 
-router.post("/", shipmentController.createOrder);
+router.post("/", auth.validateToken(), shipmentController.createOrder);
 
 module.exports = router;
