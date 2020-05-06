@@ -14,8 +14,8 @@ module.exports = {
     return con
       .query(
         `Update mp_dis_use set dius_validity = 'Used', dius_fk_shipment = $1 
-        where dius_id = $2`,
-        [shipment[0].sh_id, body.id]
+        where dius_fk_user = $2 and dius_fk_discount = $3`,
+        [shipment[0].sh_id, body.shipment.user, body.discount]
       )
       .catch((error) => {
         return new Error(error);

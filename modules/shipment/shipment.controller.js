@@ -23,12 +23,15 @@ module.exports = {
   },
   createOrder: async function (req, res, next) {
     // Se inserta un receptor, y retorna su ID
-    let receiver = await receiverModel.createReceiver(req.con, req.body);
+    let receiver = await receiverModel.createReceiver(
+      req.con,
+      req.body.receiver
+    );
 
     //Se inserta un envío, con la FK del receptor
     let shipment = await shipmentModel.createShipment(
       req.con,
-      req.body,
+      req.body.shipment,
       receiver
     );
 
@@ -55,7 +58,6 @@ module.exports = {
     }
 
     // Se actualiza la validez de un descuento y se le agrega la FK del envio
-    console.log(req.body.id);
     let discount = await discountModel.useDiscount(req.con, req.body, shipment);
 
     if (receiver instanceof Error) {
@@ -89,7 +91,7 @@ module.exports = {
       next(createError(500, `${discount.message}`));
     } else {
       logger.info({
-        message: `The shipment ${req.body.trackingID} has been proceed succesfully`,
+        message: `The shipment ${req.body.shipment.trackingID} has been proceed succesfully`,
       });
       res.json({ status: "200" });
     }

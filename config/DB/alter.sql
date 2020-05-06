@@ -1,8 +1,5 @@
 ALTER TABLE MP_LANGUAGE ADD CONSTRAINT unique_language_iso_code UNIQUE(LA_iso_code);
 
-ALTER TABLE MP_RECEIVER ADD CONSTRAINT unique_receiver_identification UNIQUE(RE_identification);
-ALTER TABLE MP_RECEIVER ADD CONSTRAINT unique_receiver_email UNIQUE(RE_email);
-
 ALTER TABLE MP_CHARACTERISTIC ADD CONSTRAINT check_characteristic_charge_parameter CHECK(CH_charge_parameter IN ('$', '%'));
 
 ALTER TABLE MP_OPTION ADD CONSTRAINT check_option_charge_parameter CHECK(OP_charge_parameter IN ('$', '%'));
