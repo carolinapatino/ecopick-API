@@ -174,11 +174,11 @@ INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIP
 INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Used',6,7,9);
 INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Used',5,6,7);
 INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Used',6,9,2);
-INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Available', 1,10,8);
-INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Available', 1,9,8);
-INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Available', 4,1,7);
-INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Available', 2,1,2);
-INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER,DIUS_FK_SHIPMENT) VALUES ('Available', 1,10,2);
+INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER) VALUES ('Available', 1,9);
+INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER) VALUES ('Available', 4,1);
+INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER) VALUES ('Available', 1,10);
+INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER) VALUES ('Available', 2,1);
+INSERT INTO MP_DIS_USE (DIUS_VALIDITY,DIUS_FK_DISCOUNT,DIUS_FK_USER) VALUES ('Available', 1,10);
 
 ----------------------------- PACKAGE ------------------------------------
 
@@ -224,19 +224,6 @@ insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) val
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-23 12:00:00', 10, 2, 6);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 08:00:00', 10, 2, 5);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 09:00:00', 10, 3, 4);
-
-/* MP_PAC_CHA */
-
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (1, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (1, 2);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (3, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (4, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (5, 3);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (6, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (7, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (8, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (9, 1);
-insert into MP_PAC_CHA (PACH_FK_package, PACH_FK_characteristic) values (10, 2);
 
 --------------------- SHI- OPT -------------------------------
 
