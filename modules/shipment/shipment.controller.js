@@ -2,6 +2,7 @@ var createError = require("http-errors");
 const shipmentModel = require("./shipment.model");
 const receiverModel = require("../receiver/receiver.model");
 const packageModel = require("../package/package.model");
+const characteristicModel = require("../characteristic/characteristic.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
 const logger = require("../../logger");
@@ -113,16 +114,16 @@ module.exports = {
       shipmentModel.getShipmentDiscounts(req.con, req.params.trackingId),
     ]));
     for (p in packages) {
-      package_options = await packageModel.getPackageCharacteristics(
+      package_characteristic = await characteristicModel.getCharacteristic(
         req.con,
-        packages[p].pa_id
+        packages[p].pa_fk_characteristic
       );
-      if (package_options instanceof Error) {
-        logger.error(package_options.message);
-        next(createError(500, package_options.message));
+      if (package_characteristic instanceof Error) {
+        logger.error(package_characteristic.message);
+        next(createError(500, package_characteristic.message));
         return;
       } else {
-        packages[p].characteristics = package_options;
+        packages[p].characteristic = package_characteristic;
       }
     }
     for (p in promises) {

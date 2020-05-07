@@ -77,7 +77,7 @@ module.exports = {
   getShipmentPackages: function (con, trackingId) {
     return con
       .query(
-        `SELECT P.PA_id, P.PA_width, P.PA_height, P.PA_length, P.PA_weight, PA_description, P.PA_cost
+        `SELECT P.PA_id, P.PA_width, P.PA_height, P.PA_length, P.PA_weight, PA_description, P.PA_cost, P.PA_FK_characteristic
           FROM MP_SHIPMENT S, MP_PACKAGE P
           WHERE S.SH_id = P.PA_FK_shipment AND S.SH_tracking_id = $1;`,
         [trackingId]

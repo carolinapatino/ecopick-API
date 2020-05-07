@@ -18,16 +18,4 @@ module.exports = {
         return new Error(error);
       });
   },
-  getPackageCharacteristics: function (con, packageId) {
-    return con
-      .query(
-        `SELECT C.CH_name, C.CH_charge, C.CH_charge_parameter
-          FROM MP_PAC_CHA PC, MP_CHARACTERISTIC C
-          WHERE C.CH_id = PC.PACH_FK_characteristic AND PC.PACH_FK_package = $1;`,
-        [packageId]
-      )
-      .catch((error) => {
-        return new Error(error);
-      });
-  },
 };
