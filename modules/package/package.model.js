@@ -9,6 +9,7 @@ module.exports = {
           body.packages[i].lenght,
           body.packages[i].weight,
           body.packages[i].cost,
+          body.packages[i].description,
           shipment[0].sh_id,
           body.packages[i].characteristic,
         ]

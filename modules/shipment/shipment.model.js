@@ -3,7 +3,7 @@ module.exports = {
   getShipment: function (con, id) {
     return con
       .query(
-        `SELECT sh_tracking_id as TrackingID ,sh_shipment_date as Delivered, sh_estimated_date_of_arrival as Arrival ,sh_total as Amount ,
+        `SELECT sh_tracking_id as TrackingID ,sh_shipment_date as Delivered, sh_estimated_date_of_arrival as Arrival , sh_purpose as purpose,sh_total as Amount ,
         o.of_name as Office, 
         CONCAT(d.di_primary_line, CONCAT(', ', CONCAT (d.di_secondary_line, CONCAT ( ', ', CONCAT (d.di_city, CONCAT (', ', CONCAT (d.di_state,CONCAT (', ', CONCAT (d.di_country,  CONCAT(', ',d.di_zip_code)))))))))) AS Direction,
         CONCAT (u.us_first_name, CONCAT (' ' , u.us_last_name))  AS User,
@@ -19,7 +19,7 @@ module.exports = {
   createShipment: function (con, body, receiver) {
     return con
       .query(
-        "INSERT INTO MP_SHIPMENT (SH_TRACKING_ID,SH_SHIPMENT_DATE,SH_estimated_date_of_arrival,SH_TOTAL,SH_FK_OFFICE_ORIGIN,SH_FK_DIRECTION_DESTINATION,SH_FK_USER,SH_FK_RECEIVER) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning SH_ID",
+        "INSERT INTO MP_SHIPMENT (SH_TRACKING_ID,SH_SHIPMENT_DATE,SH_estimated_date_of_arrival,SH_TOTAL,SH_FK_OFFICE_ORIGIN,SH_FK_DIRECTION_DESTINATION,SH_FK_USER,SH_FK_RECEIVER, SH_PURPOSE) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning SH_ID",
         [
           body.trackingID,
           body.date,
@@ -29,6 +29,7 @@ module.exports = {
           body.direction,
           body.user,
           receiver[0].re_id,
+          body.purpose,
         ]
       )
       .catch((error) => {
