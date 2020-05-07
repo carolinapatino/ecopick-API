@@ -33,10 +33,37 @@ bot.onText(/^\/start/, function (msg) {
       },
     }
   );
+
+  bot.on("callback_query", function onCallbackQuery(action) {
+    const data = action.data;
+    const msg = action.message;
+
+    if (data == "Detailbutton") {
+      bot.sendMessage(chatId, "Introduce /detail your order id");
+    }
+
+    if (data == "Trackbutton") {
+      bot.sendMessage(chatId, "Introduce /track your order id");
+    }
+  });
 });
 
-//Consulta
+//Track
 bot.onText(/\/track (.+)/, function (msg, match) {
+  var chatId = msg.chat.id;
+  var order = match[1];
+  console.log(order);
+  var id = order;
+  request(`/shipment`, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      bot.sendMessage(chatId, "We`re looking for your order " + order);
+      bot.sendMessage(chatId, body);
+    }
+  });
+});
+
+//Detail
+bot.onText(/\/detail (.+)/, function (msg, match) {
   var chatId = msg.chat.id;
   var order = match[1];
   console.log(order);
