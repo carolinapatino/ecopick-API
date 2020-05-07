@@ -16,6 +16,25 @@ module.exports = {
         return new Error(error);
       });
   },
+  createShipment: function (con, body, receiver) {
+    return con
+      .query(
+        "INSERT INTO MP_SHIPMENT (SH_TRACKING_ID,SH_SHIPMENT_DATE,SH_estimated_date_of_arrival,SH_TOTAL,SH_FK_OFFICE_ORIGIN,SH_FK_DIRECTION_DESTINATION,SH_FK_USER,SH_FK_RECEIVER) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning SH_ID",
+        [
+          body.trackingID,
+          body.date,
+          body.arrivaldate,
+          body.total,
+          body.office,
+          body.direction,
+          body.user,
+          receiver[0].re_id,
+        ]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
   // Funciones necesarias para llenar los datos de una factura
   getShipmentOrigin: function (con, trackingId) {
     return con
@@ -61,18 +80,6 @@ module.exports = {
           FROM MP_SHIPMENT S, MP_PACKAGE P
           WHERE S.SH_id = P.PA_FK_shipment AND S.SH_tracking_id = $1;`,
         [trackingId]
-      )
-      .catch((error) => {
-        return new Error(error);
-      });
-  },
-  getPackageCharacteristics: function (con, packageId) {
-    return con
-      .query(
-        `SELECT C.CH_name, C.CH_charge, C.CH_charge_parameter
-          FROM MP_PAC_CHA PC, MP_CHARACTERISTIC C
-          WHERE C.CH_id = PC.PACH_FK_characteristic AND PC.PACH_FK_package = $1;`,
-        [packageId]
       )
       .catch((error) => {
         return new Error(error);
