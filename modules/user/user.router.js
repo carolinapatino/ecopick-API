@@ -5,7 +5,7 @@ const auth = require("../../middleware/auth");
 
 router.post("/register", userController.createUser);
 router.get("/login", /*auth.validateToken,*/ userController.validateUser);
-router.post(
+router.put(
   "/:id/newPassword",
   auth.validateToken,
   userController.forgotPassword
