@@ -118,7 +118,7 @@ module.exports = {
     let assignedDiscount = await discountModel.assignDiscount(
       req.con,
       req.params.userId,
-      req.params.discountId
+      req.body.discount.id
     );
     if (assignedDiscount instanceof Error) {
       next(createError(500, `${assignedDiscount.message}`));
@@ -127,10 +127,10 @@ module.exports = {
       });
     } else {
       new Email(
-        req.body.email,
-        req.body.first_name,
+        req.body.user.email,
+        req.body.user.firstName,
         "Discount"
-      ).discountAnnouncement("-" + discount[0].di_percentage * 100);
+      ).discountAnnouncement("-" + req.body.discount.percentage * 100);
 
       res.json({ status: "200" });
     }

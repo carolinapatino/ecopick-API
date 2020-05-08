@@ -11,7 +11,7 @@ router.put(
   userController.forgotPassword
 );
 router.post(
-  "/:userId/discount/:discountId",
+  "/:userId/assignDiscount",
   auth.validateToken,
   userController.assignDiscount
 );

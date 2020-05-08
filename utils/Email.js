@@ -13,6 +13,7 @@ module.exports = class Email {
   discountAnnouncement(discount) {
     if (this.purpose == "Welcome") {
       var data = {
+        subject: "Welcome to Mr. Postel!",
         sender_name: "Mr. Postel",
         title: "Welcome to Mr. Postel",
         email_body: `Thank you for signing up, ${this.userName}. <br> With <strong>MrPostel</strong> you can send your packages all over the US. <br> To celebrate that you chose us, we will give you a discount to start your experience with us!`,
@@ -24,6 +25,7 @@ module.exports = class Email {
       };
     } else if (this.purpose == "Discount") {
       var data = {
+        subject: "Special discount",
         sender_name: "Mr. Postel",
         title: "Mr. Postel special discount!",
         email_body: `Hey ${this.userName}. <br> <strong>MrPostel</strong> loves to celebrate everyday with you. <br> So we are happy to give you a discount gift!`,
@@ -60,6 +62,7 @@ module.exports = class Email {
 
   passwordChange(password) {
     var data = {
+      subject: "Password change",
       sender_name: "Mr. Postel",
       title: "New password",
       email_body: `Hello ${this.userName}. <br> Your new password is <strong>${password}</strong>.`,
