@@ -10,7 +10,7 @@ module.exports = class Email {
     this.purpose = purpose;
   }
 
-  send(discount) {
+  discountAnnouncement(discount) {
     if (this.purpose == "Welcome") {
       var data = {
         sender_name: "Mr. Postel",
@@ -34,6 +34,7 @@ module.exports = class Email {
         },
       };
     }
+
     data.column1 = {
       keyword: "Ship",
       description: "Anywhere in the US! It's quick and simple",
@@ -54,6 +55,43 @@ module.exports = class Email {
       template_id: "d-1570c8919ebf4f0ea524efd529008026",
     };
 
+    this.send(msg);
+  }
+
+  passwordChange(password) {
+    var data = {
+      sender_name: "Mr. Postel",
+      title: "New password",
+      email_body: `Hello ${this.userName}. <br> Your new password is <strong>${password}</strong>.`,
+      thanks: "Thank you for choosing us!",
+      announcement: {
+        resume: `Password change`,
+      },
+    };
+    data.column1 = {
+      keyword: "Ship",
+      description: "Anywhere in the US! It's quick and simple",
+    };
+    data.column2 = {
+      keyword: "Track",
+      description: "Your shipment's delivery process using our Telegram bot",
+    };
+    data.column3 = {
+      keyword: "Keep connected",
+      description: "Stay safe. Leave the rest to us!",
+    };
+
+    const msg = {
+      to: this.userEmail,
+      from: this.from,
+      dynamic_template_data: data,
+      template_id: "d-1570c8919ebf4f0ea524efd529008026",
+    };
+
+    this.send(msg);
+  }
+
+  send(msg) {
     sgMail
       .send(msg)
       .then(() => {

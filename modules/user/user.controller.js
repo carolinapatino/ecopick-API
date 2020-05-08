@@ -35,9 +35,11 @@ module.exports = {
             message: `Discount not assigned | ${assignedDiscount.message}`,
           });
         } else {
-          new Email(req.body.email, req.body.first_name, "Welcome").send(
-            "-" + discount[0].di_percentage * 100
-          );
+          new Email(
+            req.body.email,
+            req.body.first_name,
+            "Welcome"
+          ).discountAnnouncement("-" + discount[0].di_percentage * 100);
         }
         res.json({ status: "200" /*, token: auth.createToken()*/ });
       }
@@ -78,6 +80,38 @@ module.exports = {
           res.json({ status: "200", token: auth.createToken() });
         }
       }
+    }
+  },
+  forgotPassword: async function (req, res, next) {
+    var password = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < 8; i++) {
+      password += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    let result = await userModel.updatePassword(
+      req.con,
+      req.params.id,
+      password
+    );
+    if (result instanceof Error) {
+      logger.error({
+        message: `${result.message}`,
+      });
+      next(createError(500, `${result.message}`));
+    } else {
+      new Email(
+        result[0].us_email,
+        result[0].us_first_name,
+        "Password"
+      ).passwordChange(password);
+      logger.info({
+        message: `The password for user ${req.params.id} was changed successfully`,
+      });
+      res.json({ status: "200" });
     }
   },
 };

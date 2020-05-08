@@ -32,4 +32,14 @@ module.exports = {
         return new Error(error);
       });
   },
+  updatePassword: function (con, id, password) {
+    return con
+      .query(
+        "UPDATE MP_USER SET US_password = $1 WHERE US_id=$2 RETURNING US_email, US_first_name",
+        [password, id]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
