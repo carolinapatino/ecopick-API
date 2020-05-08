@@ -114,4 +114,39 @@ module.exports = {
       res.json({ status: "200" });
     }
   },
+  assignDiscount: async function (req, res, next) {
+    let assignedDiscount = await discountModel.assignDiscount(
+      req.con,
+      req.params.userId,
+      req.params.discountId
+    );
+    if (assignedDiscount instanceof Error) {
+      next(createError(500, `${assignedDiscount.message}`));
+      logger.error({
+        message: `Discount not assigned | ${assignedDiscount.message}`,
+      });
+    } else {
+      new Email(
+        req.body.email,
+        req.body.first_name,
+        "Discount"
+      ).discountAnnouncement("-" + discount[0].di_percentage * 100);
+
+      res.json({ status: "200" });
+    }
+  },
+  getUsers: async function (req, res, next) {
+    let users = await userModel.getUsers(req.con, req.body);
+    if (users instanceof Error) {
+      next(createError(500, `${users.message}`));
+      logger.error({
+        message: `${users.message}`,
+      });
+    } else {
+      logger.info({
+        message: `Users with charge ${req.body.charge} where sucessfully consulted`,
+      });
+      res.json(users);
+    }
+  },
 };

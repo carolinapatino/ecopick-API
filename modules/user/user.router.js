@@ -10,5 +10,11 @@ router.put(
   auth.validateToken,
   userController.forgotPassword
 );
+router.post(
+  "/:userId/discount/:discountId",
+  auth.validateToken,
+  userController.assignDiscount
+);
+router.get("/", auth.validateToken, userController.getUsers);
 
 module.exports = router;
