@@ -3,7 +3,7 @@ const discountModel = require("../discount/discount.model");
 const auth = require("../../middleware/auth");
 const logger = require("../../logger");
 const Email = require("../../utils/Email");
-var createError = require("http-errors");
+const createError = require("http-errors");
 
 module.exports = {
   createUser: async function (req, res, next) {
@@ -148,5 +148,10 @@ module.exports = {
       });
       res.json(users);
     }
+  },
+  sendAttachment: async function (req, res, next) {
+    new Email(req.body.userEmail, req.body.userName, "Attachment").invoice(
+      req.file
+    );
   },
 };

@@ -94,6 +94,48 @@ module.exports = class Email {
     this.send(msg);
   }
 
+  invoice(file) {
+    var data = {
+      subject: "New shipment",
+      sender_name: "Mr. Postel",
+      title: "Shipment invoice",
+      email_body: `Hello ${this.userName}. <br> Thank you for choosing us! We attached your new shipment's invoice.`,
+      thanks: "Thank you for choosing us!",
+      announcement: {
+        resume: `New shipment!`,
+        description: "Thank you for shipping with us!",
+      },
+    };
+    data.column1 = {
+      keyword: "Ship",
+      description: "Anywhere in the US! It's quick and simple",
+    };
+    data.column2 = {
+      keyword: "Track",
+      description: "Your shipment's delivery process using our Telegram bot",
+    };
+    data.column3 = {
+      keyword: "Keep connected",
+      description: "Stay safe. Leave the rest to us!",
+    };
+
+    const msg = {
+      to: this.userEmail,
+      from: this.from,
+      dynamic_template_data: data,
+      attachments: [
+        {
+          filename: file.originalname,
+          type: file.mimetype,
+          content: file.buffer.toString("base64"),
+        },
+      ],
+      template_id: "d-1570c8919ebf4f0ea524efd529008026",
+    };
+
+    this.send(msg);
+  }
+
   send(msg) {
     sgMail
       .send(msg)
@@ -109,14 +151,3 @@ module.exports = class Email {
       });
   }
 };
-
-// const Email = require("../../utils/Email");
-
-// function (req, res, next) {
-//   await new Email(
-//         req.body.userEmail,
-//         req.body.email,
-//         req.body.announcement,
-//         req.body.description
-//       ).send(req.body.purpose);
-// })
