@@ -2,18 +2,7 @@ var TelegramBot = require("node-telegram-bot-api");
 var token = "1235638372:AAFPpOVYNsfCef0EcN1GTfG80Ah1LLbhzKU";
 var bot = new TelegramBot(token, { polling: true });
 var request = require("request");
-
-//Bienvenida
-/*bot.onText(/^\/start/, function (msg) {
-  var chatId = msg.chat.id;
-  var nameUser = msg.from.first_name;
-  bot.sendMessage(
-    chatId,
-    "Welcome to Mr.Postel " +
-      nameUser +
-      ". Introduce your tracking ID, like this /track  your ID"
-  );
-});*/
+var shipmentModel = require("../shipment/shipment.model");
 
 //Bienvenida con botones
 bot.onText(/^\/start/, function (msg) {
@@ -48,30 +37,34 @@ bot.onText(/^\/start/, function (msg) {
   });
 });
 
-//Track
+//Track - Consulta las rutas de forma textual
 bot.onText(/\/track (.+)/, function (msg, match) {
-  var chatId = msg.chat.id;
-  var order = match[1];
-  console.log(order);
-  var id = order;
-  request(`/shipment`, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      bot.sendMessage(chatId, "We`re looking for your order " + order);
-      bot.sendMessage(chatId, body);
-    }
-  });
+  let chatId = msg.chat.id;
+  bot.sendMessage(chatId, "You can know where is your package");
 });
 
-//Detail
+//Detail -Consulta el detalle del envio
 bot.onText(/\/detail (.+)/, function (msg, match) {
-  var chatId = msg.chat.id;
-  var order = match[1];
-  console.log(order);
-  var id = order;
-  request(`/shipment`, function (error, response, body) {
+  let chatId = msg.chat.id;
+  let order = match[1];
+  request(`http://localhost:3000/mrpostel/api/shipment/${order}`, function (
+    error,
+    response,
+    body
+  ) {
+    let detail = JSON.parse(body);
+
     if (!error && response.statusCode == 200) {
-      bot.sendMessage(chatId, "We`re looking for your order " + order);
-      bot.sendMessage(chatId, body);
+      bot.sendMessage(chatId, "Tracking ID: " + detail[0].trackingid);
+      bot.sendMessage(chatId, "Delivered date: " + detail[0].delivered);
+      bot.sendMessage(chatId, "Arrival date: " + detail[0].arrival);
+      bot.sendMessage(chatId, "Amount: " + detail[0].amount + " $");
+      bot.sendMessage(chatId, "Office: " + detail[0].office);
+      bot.sendMessage(chatId, "Direction: " + detail[0].direction);
+      bot.sendMessage(chatId, "User: " + detail[0].user);
+      bot.sendMessage(chatId, "Receiver: " + detail[0].receiver);
+    } else {
+      console.log(error);
     }
   });
 });

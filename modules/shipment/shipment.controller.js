@@ -10,6 +10,11 @@ module.exports = {
         message: `${results.message}`,
       });
       next(createError(500, `${results.message}`));
+    } else if (results.length == 0) {
+      logger.info({
+        message: `There isn't the shipment with ID ${req.params.id}`,
+      });
+      res.json(results.length);
     } else {
       logger.info({
         message: `This is the detail of the shipment ${req.params.id}`,

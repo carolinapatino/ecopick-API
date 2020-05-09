@@ -1,6 +1,7 @@
 const app = require("./app");
 const logger = require("./logger");
 const port = 3000;
+const bot = require("./modules/utils/bot");
 
 // El servidor levanta la aplicación
 app.listen(port, () => {
@@ -8,3 +9,4 @@ app.listen(port, () => {
     message: `App listening`,
   });
 });
+
