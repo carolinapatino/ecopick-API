@@ -31,4 +31,4 @@ function convertToSnakeCase(req, res, next) {
   next();
 }
 
-module.exports = { parseRequestBody };
+module.exports = { toSnakeCase, checkSnake, convertToSnakeCase };
