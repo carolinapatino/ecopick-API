@@ -1,5 +1,5 @@
 var TelegramBot = require("node-telegram-bot-api");
-var token = "1235638372:AAFPpOVYNsfCef0EcN1GTfG80Ah1LLbhzKU";
+var token = process.env.BOT_TOKEN;
 var bot = new TelegramBot(token, { polling: true });
 var request = require("request");
 var shipmentModel = require("../shipment/shipment.model");
@@ -53,8 +53,12 @@ bot.onText(/\/detail (.+)/, function (msg, match) {
     body
   ) {
     let detail = JSON.parse(body);
-
-    if (!error && response.statusCode == 200) {
+    if (body == 0) {
+      bot.sendMessage(
+        chatId,
+        "There isn`t a order with ID " + order + ". Please check and try again"
+      );
+    } else if (!error && response.statusCode == 200) {
       bot.sendMessage(chatId, "Tracking ID: " + detail[0].trackingid);
       bot.sendMessage(chatId, "Delivered date: " + detail[0].delivered);
       bot.sendMessage(chatId, "Arrival date: " + detail[0].arrival);
