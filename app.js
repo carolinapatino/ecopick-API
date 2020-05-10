@@ -8,11 +8,12 @@ const cors = require("cors");
 const logger = require("./logger.js");
 const connectionBD = require("./config/db.js");
 const router = require("./router.js");
+const parseRequestBody = require("./middleware/parseRequestBody");
 
 // Admitir comunicaciones a través de la red con Cors
-if (process.env.NODE_ENV == "production") {
-  app.use(cors());
-}
+// if (process.env.NODE_ENV == "production") {
+app.use(cors());
+// }
 
 // Configuración de elementos de optimización y seguridad
 app.use(compression());
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
 });
 
 // Router de la aplicación, con la ruta base de la API
-app.use("/mrpostel/api/", router);
+app.use("/mrpostel/api/", parseRequestBody.convertToSnakeCase, router);
 
 // Error 404 en caso de ir a una ruta no especificada
 app.use(function (req, res, next) {
