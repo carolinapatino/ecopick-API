@@ -1,5 +1,5 @@
 const discountModel = require("./discount.model");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 
 module.exports = {
   getDiscount: async function (req, res, next) {

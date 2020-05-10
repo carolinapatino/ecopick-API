@@ -4,7 +4,7 @@ const receiverModel = require("../receiver/receiver.model");
 const packageModel = require("../package/package.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 
 module.exports = {
   getShipment: async function (req, res, next) {

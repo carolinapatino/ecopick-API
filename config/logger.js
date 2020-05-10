@@ -23,5 +23,6 @@ module.exports = createLogger({
         })
       ),
     }),
+    new transports.File({ filename: "combined.log" }),
   ],
 });
