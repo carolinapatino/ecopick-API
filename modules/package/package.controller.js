@@ -1,4 +1,4 @@
 const packageModel = require("./package.model");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 
 module.exports = {};

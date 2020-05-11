@@ -4,22 +4,27 @@ const receiverModel = require("../receiver/receiver.model");
 const packageModel = require("../package/package.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 
 module.exports = {
   getShipment: async function (req, res, next) {
     let results = await shipmentModel.getShipment(req.con, req.params.id);
     if (results instanceof Error) {
       logger.error({
-        message: `${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
       });
       next(createError(500, `${results.message}`));
+    } else if (results.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT |  Shippment ${req.params.id} doesn't exist`,
+      });
+      res.status(204);
     } else {
       logger.info({
-        message: `This is the detail of the shipment ${req.params.id}`,
+        message: `STATUS 200 | OK | Detail info for shipment #${req.params.id} was found successfully`,
       });
-      res.json(results);
     }
+    res.json(results);
   },
   createOrder: async function (req, res, next) {
     // Se inserta un receptor, y retorna su ID
@@ -27,6 +32,12 @@ module.exports = {
       req.con,
       req.body.receiver
     );
+    if (receiver instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+      });
+      next(createError(500, `${receiver.message}`));
+    }
 
     //Se inserta un envío, con la FK del receptor
     let shipment = await shipmentModel.createShipment(
@@ -34,6 +45,12 @@ module.exports = {
       req.body.shipment,
       receiver
     );
+    if (shipment instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+      });
+      next(createError(500, `${shipment.message}`));
+    }
 
     // Se inicia un ciclo para insertar todos los paquetes de este envío
     var i;
@@ -45,6 +62,12 @@ module.exports = {
         shipment,
         i
       );
+      if (package instanceof Error) {
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        });
+        next(createError(500, `${package.message}`));
+      }
     }
     // Se inicia un ciclo para insertar todas las opciones de envío
     let option;
@@ -55,45 +78,31 @@ module.exports = {
         shipment,
         i
       );
+      if (option instanceof Error) {
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        });
+        next(createError(500, `${option.message}`));
+      }
     }
 
     // Se actualiza la validez de un descuento y se le agrega la FK del envio
-    let discount = await discountModel.useDiscount(req.con, req.body, shipment);
-
-    if (receiver instanceof Error) {
-      logger.error({
-        message: `${receiver.message}`,
-      });
-      next(createError(500, `${receiver.message}`));
-    }
-    if (shipment instanceof Error) {
-      logger.error({
-        message: `${shipment.message}`,
-      });
-      next(createError(500, `${shipment.message}`));
-    }
-    if (package instanceof Error) {
-      logger.error({
-        message: `${package.message}`,
-      });
-      next(createError(500, `${package.message}`));
-    }
-    if (option instanceof Error) {
-      logger.error({
-        message: `${option.message}`,
-      });
-      next(createError(500, `${option.message}`));
-    }
+    let discount = await discountModel.useDiscount(
+      req.con,
+      req.body,
+      shipment[0].sh_id
+    );
     if (discount instanceof Error) {
       logger.error({
-        message: `${discount.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
       });
       next(createError(500, `${discount.message}`));
-    } else {
-      logger.info({
-        message: `The shipment ${req.body.shipment.trackingID} has been proceed succesfully`,
-      });
-      res.json({ status: "200" });
     }
+
+    logger.info({
+      message: `STATUS 201 | CREATED | The shipment ${req.body.shipment.trackingID} has been registered successfully`,
+    });
+    res.status(201);
+    res.json({});
   },
 };

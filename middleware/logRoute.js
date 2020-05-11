@@ -1,10 +1,9 @@
-const logger = require("../logger.js");
+const logger = require("../config/logger.js");
 
 function notFoundLog(req, res, next) {
   var err = new Error("Not Found");
-  err.status = 404;
   logger.error({
-    message: `ERROR ${err.status}: Not Found`,
+    message: `ERROR: ${err.message}`,
   });
   next(err);
 }
