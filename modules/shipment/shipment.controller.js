@@ -114,13 +114,20 @@ module.exports = {
       req.params.trackingId
     );
     if (route instanceof Error) {
-      logger.error(route.message);
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${route.message}`,
+      });
       next(createError(500, route.message));
+    } else if (route.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | Shippment #${req.params.trackingId} hasn't started its route or doesn't exist`,
+      });
+      res.status(204);
     } else {
       logger.info({
-        message: `Route details for shipment ${req.params.trackingId} were successfully consulted`,
+        message: `STATUS 200 | OK | Route info for shipment #${req.params.trackingId} was found successfully`,
       });
-      res.json(route);
     }
+    res.json(route);
   },
 };
