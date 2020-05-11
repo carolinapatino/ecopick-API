@@ -75,7 +75,7 @@ module.exports = {
           logger.info({
             message: `STATUS 204 | NO CONTENT | User ${req.body.email} is disabled.`,
           });
-        } else if (results[0].us_charge !== "Client") {
+        } else if (results[0].us_charge !== "Admin") {
           logger.info({
             message: `STATUS 204 | NO CONTENT | User ${req.body.email} doesn't have permission to access the system`,
           });
