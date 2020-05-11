@@ -17,7 +17,7 @@ module.exports = {
       next(createError(500, `${results.message}`));
     } else if (results.length == 0) {
       logger.info({
-        message: `STATUS 204 | NO CONTENT |  Shippment ${req.params.id} doesn't exist`,
+        message: `STATUS 204 | NO CONTENT | Shippment ${req.params.id} doesn't exist`,
       });
       res.status(204);
     } else {
@@ -122,29 +122,40 @@ module.exports = {
       shipmentModel.getShipmentPackages(req.con, req.params.trackingId),
       shipmentModel.getShipmentDiscounts(req.con, req.params.trackingId),
     ]));
+    for (p in promises) {
+      if (promises[p] instanceof Error) {
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${promises[p].message}`,
+        });
+        next(createError(500, promises[p].message));
+        return;
+      }
+    }
     for (p in packages) {
       package_characteristic = await characteristicModel.getCharacteristic(
         req.con,
         packages[p].pa_fk_characteristic
       );
       if (package_characteristic instanceof Error) {
-        logger.error(package_characteristic.message);
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${package_characteristic.message}`,
+        });
         next(createError(500, package_characteristic.message));
         return;
       } else {
         packages[p].characteristic = package_characteristic;
       }
     }
-    for (p in promises) {
-      if (promises[p] instanceof Error) {
-        logger.error(promises[p].message);
-        next(createError(500, promises[p].message));
-        return;
-      }
+    if (shipment_options.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | Shippment #${req.params.trackingId} doesn't exist`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | Invoice details for shipment #${req.params.trackingId} were found successfully`,
+      });
     }
-    logger.info(
-      `The invoice details for shipment ${req.params.trackingId} were successfully consulted`
-    );
     res.json({
       options: shipment_options,
       route: { origin: origin, destination: destination },
