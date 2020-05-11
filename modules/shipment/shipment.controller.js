@@ -7,6 +7,7 @@ const discountModel = require("../discount/discount.model");
 const logger = require("../../config/logger");
 
 module.exports = {
+  //CONSULTAR ENVIO
   getShipment: async function (req, res, next) {
     let results = await shipmentModel.getShipment(req.con, req.params.id);
     if (results instanceof Error) {
@@ -26,6 +27,7 @@ module.exports = {
     }
     res.json(results);
   },
+  //REGISTRAR ENVIO
   createOrder: async function (req, res, next) {
     // Se inserta un receptor, y retorna su ID
     let receiver = await receiverModel.createReceiver(
@@ -104,5 +106,21 @@ module.exports = {
     });
     res.status(201);
     res.json({});
+  },
+  //CONSULTAR RUTA DE ENVIO
+  getShipmentRoute: async function (req, res, next) {
+    let route = await shipmentModel.getShipmentRoute(
+      req.con,
+      req.params.trackingId
+    );
+    if (route instanceof Error) {
+      logger.error(route.message);
+      next(createError(500, route.message));
+    } else {
+      logger.info({
+        message: `Route details for shipment ${req.params.trackingId} were successfully consulted`,
+      });
+      res.json(route);
+    }
   },
 };
