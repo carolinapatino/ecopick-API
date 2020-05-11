@@ -1,22 +1,49 @@
 const userModel = require("./user.model");
+const discountModel = require("../discount/discount.model");
 const auth = require("../../middleware/auth");
 const logger = require("../../config/logger");
+const Email = require("../../utils/Email");
 var createError = require("http-errors");
 
 module.exports = {
   createUser: async function (req, res, next) {
-    let results = await userModel.createUser(req.con, req.body);
-    if (results instanceof Error) {
+    let user = await userModel.createUser(req.con, req.body);
+    if (user instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${user.message}`,
       });
-      next(createError(500, `${results.message}`));
+      next(createError(500, `${user.message}`));
     } else {
-      logger.info({
-        message: `STATUS 201 | CREATED | User ${req.body.email} registered successfully`,
-      });
-      res.status(201);
-      res.json({});
+      let discount = await discountModel.getDiscountByName(req.con, "Welcome");
+      if (discount instanceof Error) {
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${discount.message}`,
+        });
+        next(createError(500, `${discount.message}`));
+      } else {
+        logger.info({
+          message: `STATUS 201 | CREATED | User ${req.body.email} registered successfully`,
+        });
+        let assignedDiscount = await discountModel.assignDiscount(
+          req.con,
+          user[0].us_id,
+          discount[0].di_id
+        );
+        if (assignedDiscount instanceof Error) {
+          logger.error({
+            message: `STATUS 500 | DATABASE ERROR | Discount not assigned | ${assignedDiscount.message}`,
+          });
+          next(createError(500, `${assignedDiscount.message}`));
+        } else {
+          new Email(
+            req.body.email,
+            req.body.first_name,
+            "Welcome"
+          ).discountAnnouncement("-" + discount[0].di_percentage * 100);
+        }
+        res.status(201);
+        res.json({});
+      }
     }
   },
   validateUser: async function (req, res, next) {
@@ -53,5 +80,92 @@ module.exports = {
       });
       res.json({ token: auth.createToken(), results });
     }
+  },
+  forgotPassword: async function (req, res, next) {
+    var password = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < 8; i++) {
+      password += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
+    }
+    let result = await userModel.updatePassword(
+      req.con,
+      req.params.id,
+      password
+    );
+    if (result instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${result.message}`,
+      });
+      next(createError(500, `${result.message}`));
+    } else {
+      if (result.length == 0) {
+        logger.info({
+          message: `STATUS 204 | NO CONTENT | User ${req.body.email} doesn't exist`,
+        });
+        res.status(204);
+      } else {
+        new Email(
+          result[0].us_email,
+          result[0].us_first_name,
+          "Password"
+        ).passwordChange(password);
+        logger.info({
+          message: `STATUS 200 | OK | The password for user ${req.params.id} was changed successfully`,
+        });
+      }
+      res.json({});
+    }
+  },
+  assignDiscount: async function (req, res, next) {
+    let assignedDiscount = await discountModel.assignDiscount(
+      req.con,
+      req.params.userId,
+      req.body.discount.id
+    );
+    if (assignedDiscount instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | Discount not assigned | ${assignedDiscount.message}`,
+      });
+      next(createError(500, `${assignedDiscount.message}`));
+    } else {
+      new Email(
+        req.body.user.email,
+        req.body.user.firstName,
+        "Discount"
+      ).discountAnnouncement("-" + req.body.discount.percentage * 100);
+      logger.info({
+        message: `STATUS 201 | CREATED | Discount ${req.body.discount.id} assigned successfully to user ${req.body.user.email}`,
+      });
+      res.status(201);
+      res.json({});
+    }
+  },
+  getUsers: async function (req, res, next) {
+    let users = await userModel.getUsers(req.con, req.body);
+    if (users instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${users.message}`,
+      });
+      next(createError(500, `${users.message}`));
+    } else if (users.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | No users  with charge ${req.body.charge} registered`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | Users with charge ${req.body.charge} where sucessfully consulted`,
+      });
+    }
+    res.json(users);
+  },
+  sendAttachment: async function (req, res, next) {
+    new Email(req.body.userEmail, req.body.userName, "Attachment").invoice(
+      req.file
+    );
   },
 };
