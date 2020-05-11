@@ -1,24 +1,24 @@
 const userModel = require("./user.model");
 const auth = require("../../middleware/auth");
-const logger = require("../../logger");
+const logger = require("../../config/logger");
 var createError = require("http-errors");
 
 module.exports = {
-    createUser: async function (req,res,next) {
-        let results = await userModel.createUser(req.con,req.body);
-        if(results instanceof Error) {
-            next(createError(500, `${results.message}`));
-            logger.error({
-                message: `${results.message}`
-            });
-        }
-        else {
-            logger.info({
-                message: `User ${req.body.email} registered successfully`,
-              });
-            res.json({ status: "200"/*, token: auth.createToken()*/});
-        }
-    }, 
+     createUser: async function (req, res, next) {
+    let results = await userModel.createUser(req.con, req.body);
+    if (results instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+      });
+      next(createError(500, `${results.message}`));
+    } else {
+      logger.info({
+        message: `STATUS 201 | CREATED | User ${req.body.email} registered successfully`,
+      });
+      res.status(201);
+      res.json({});
+     }
+    },
     validateUser: async function (req, res, next) {
       let results = await userModel.validateUser(req.con, req.body);
       if (results instanceof Error) {
@@ -88,5 +88,5 @@ module.exports = {
         });
         res.json({ token: auth.createToken(), results });
       }
-    }, 
+    },
 };

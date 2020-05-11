@@ -22,21 +22,24 @@ module.exports = {
           return new Error(error);
         });
     },
-    validateUser: function (con, body) {
-      return con
-        .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
-          body.email,
-          body.password,
-        ])
-        .catch((error) => {
-          return new Error(error);
-        });
-    },
+     validateUser: function (con, body) {
+    return con
+      .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
+        body.email,
+        body.password,
+      ])
+      .catch((error) => {
+        return new Error(error);
+      });
+   },
     BO_validateUser: function (con, body) {
-      return con
-        .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [body.email,body.password])
-        .catch((error) => {
-          return new Error(error);
-        });
-    }
+    return con
+      .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
+        body.email,
+        body.password,
+      ])
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
