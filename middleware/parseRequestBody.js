@@ -26,7 +26,6 @@ function checkSnake(source) {
 function convertToSnakeCase(req, res, next) {
   let source = req.body;
   let bodyCheck = toSnakeCase(source);
-  console.log(bodyCheck);
   req.body = bodyCheck;
   next();
 }

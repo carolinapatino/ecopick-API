@@ -3,7 +3,7 @@ const logger = require("../config/logger.js");
 function notFoundLog(req, res, next) {
   var err = new Error("Not Found");
   logger.error({
-    message: `ERROR ${err.status}: ${err.message}`,
+    message: `ERROR: ${err.message}`,
   });
   next(err);
 }
