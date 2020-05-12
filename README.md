@@ -24,6 +24,7 @@
 ### Dependencias del proyecto
 
 - Express
+- Axios
 - Lob
 - dotenv
 - pg-promise
