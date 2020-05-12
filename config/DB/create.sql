@@ -90,8 +90,8 @@ CREATE TABLE MP_OFFICE (
 CREATE TABLE MP_SHIPMENT (
   SH_id SERIAL PRIMARY KEY,
   SH_tracking_id INTEGER NOT NULL,
-  SH_shipment_date DATE NOT NULL,
-  SH_estimated_date_of_arrival DATE,
+  SH_shipment_date TIMESTAMP NOT NULL,
+  SH_estimated_date_of_arrival TIMESTAMP,
   SH_purpose VARCHAR,
   SH_total FLOAT NOT NULL,
   SH_qr_code VARCHAR,
@@ -111,7 +111,7 @@ CREATE TABLE MP_DIS_USE (
 
 CREATE TABLE MP_STOP (
   ST_id SERIAL PRIMARY KEY,
-  ST_date DATE NOT NULL,
+  ST_date TIMESTAMP NOT NULL,
   ST_FK_status INTEGER NOT NULL,
   ST_FK_direction INTEGER NOT NULL,
   ST_FK_shipment INTEGER NOT NULL

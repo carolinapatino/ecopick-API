@@ -8,6 +8,7 @@ const discountModel = require("../discount/discount.model");
 const logger = require("../../config/logger");
 
 module.exports = {
+  //CONSULTAR ENVIO
   getShipment: async function (req, res, next) {
     let results = await shipmentModel.getShipment(req.con, req.params.id);
     if (results instanceof Error) {
@@ -27,6 +28,7 @@ module.exports = {
     }
     res.json(results);
   },
+  //REGISTRAR ENVIO
   createOrder: async function (req, res, next) {
     // Se inserta un receptor, y retorna su ID
     let receiver = await receiverModel.createReceiver(
@@ -105,6 +107,29 @@ module.exports = {
     });
     res.status(201);
     res.json({});
+  },
+  //CONSULTAR RUTA DE ENVIO
+  getShipmentRoute: async function (req, res, next) {
+    let route = await shipmentModel.getShipmentRoute(
+      req.con,
+      req.params.trackingId
+    );
+    if (route instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${route.message}`,
+      });
+      next(createError(500, route.message));
+    } else if (route.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | Shippment #${req.params.trackingId} hasn't started its route or doesn't exist`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | Route info for shipment #${req.params.trackingId} was found successfully`,
+      });
+    }
+    res.json(route);
   },
   getInvoice: async function (req, res, next) {
     let promises = ([

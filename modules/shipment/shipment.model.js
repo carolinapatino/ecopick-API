@@ -1,5 +1,5 @@
 module.exports = {
-  //Obtener datos principales del envio
+  // Obtener datos principales del envio
   getShipment: function (con, id) {
     return con
       .query(
@@ -16,6 +16,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // Insertar envio
   createShipment: function (con, body, receiver) {
     return con
       .query(
@@ -36,7 +37,21 @@ module.exports = {
         return new Error(error);
       });
   },
+  // Obtener ruta de envio
+  getShipmentRoute: function (con, trackingId) {
+    return con
+      .query(
+        `SELECT STO.ST_date, STA.ST_name as status, STA.ST_description as status_description, CONCAT(d.di_primary_line, CONCAT(', ', CONCAT (d.di_secondary_line, CONCAT ( ', ', CONCAT (d.di_city, CONCAT (', ', CONCAT (d.di_state,CONCAT (', ', CONCAT (d.di_country,  CONCAT(', ',d.di_zip_code)))))))))) AS Direction
+          FROM MP_STOP STO, MP_DIRECTION D, MP_STATUS STA, MP_SHIPMENT S
+          WHERE STO.ST_FK_status = STA.ST_id AND STO.ST_FK_direction = D.DI_id AND STO.ST_FK_SHIPMENT = S.SH_id AND S.SH_tracking_id = $1;`,
+        [trackingId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
   // Funciones necesarias para llenar los datos de una factura
+  // // Obtener origen
   getShipmentOrigin: function (con, trackingId) {
     return con
       .query(
@@ -49,6 +64,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // // Obtener destino
   getShipmentDestination: function (con, trackingId) {
     return con
       .query(
@@ -61,6 +77,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // // Obtener receptor
   getShipmentReceiver: function (con, trackingId) {
     return con
       .query(
@@ -74,6 +91,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // // Obtener paquetes
   getShipmentPackages: function (con, trackingId) {
     return con
       .query(
@@ -86,6 +104,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // // Obtener opciones
   getShipmentOptions: function (con, trackingId) {
     return con
       .query(
@@ -98,6 +117,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // // Obtener descuentos
   getShipmentDiscounts: function (con, trackingId) {
     return con
       .query(
