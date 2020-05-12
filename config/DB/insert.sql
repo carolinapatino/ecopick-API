@@ -109,26 +109,26 @@ INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('10:30 AM 
 
 /* MP_OFFICE */ 
 
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Atlanta Pryor', 22);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Atlanta Peachtree', 24);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Texas Dyna', 26);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Texas Whitehurst', 28);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Texas Brookside', 30);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Michigan', 11);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Pennsylvania', 16);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel North Lincoln', 10);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel North Milwaukee', 8);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Midtown West', 7);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel 14th', 6);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Maple', 5);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Grand', 12);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Illinois', 13);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Columbus', 14);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Green', 15);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel West Marietta',17);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Milwaukee', 18);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Buford', 25);
-insert into MP_OFFICE (OF_name, OF_FK_DIRECTION) values ('Mr.Postel Wyndale', 27);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Atlanta Pryor', 22, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Atlanta Peachtree', 24, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Texas Dyna', 26, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Texas Whitehurst', 28, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Texas Brookside', 30, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Michigan', 11, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Pennsylvania', 16, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel North Lincoln', 10, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel North Milwaukee', 8, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Midtown West', 7, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel 14th', 6, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Maple', 5, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Grand', 12, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Illinois', 13, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Columbus', 14, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Green', 15, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel West Marietta',17, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Milwaukee', 18, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Buford', 25, 4);
+insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Postel Wyndale', 27, 4);
 
 /* MP_CONFIGURATION */
 

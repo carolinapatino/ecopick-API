@@ -10,7 +10,10 @@ const logger = require("../../config/logger");
 module.exports = {
   //CONSULTAR ENVIO
   getShipment: async function (req, res, next) {
-    let results = await shipmentModel.getShipment(req.con, req.params.id);
+    let results = await shipmentModel.getShipment(
+      req.con,
+      req.params.trackingId
+    );
     if (results instanceof Error) {
       logger.error({
         message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
@@ -37,7 +40,7 @@ module.exports = {
     );
     if (receiver instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${receiver.message}`,
       });
       next(createError(500, `${receiver.message}`));
     }
@@ -50,7 +53,7 @@ module.exports = {
     );
     if (shipment instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${shipment.message}`,
       });
       next(createError(500, `${shipment.message}`));
     }
@@ -67,7 +70,7 @@ module.exports = {
       );
       if (package instanceof Error) {
         logger.error({
-          message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+          message: `STATUS 500 | DATABASE ERROR | ${package.message}`,
         });
         next(createError(500, `${package.message}`));
       }
@@ -83,7 +86,7 @@ module.exports = {
       );
       if (option instanceof Error) {
         logger.error({
-          message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+          message: `STATUS 500 | DATABASE ERROR | ${option.message}`,
         });
         next(createError(500, `${option.message}`));
       }
@@ -97,7 +100,7 @@ module.exports = {
     );
     if (discount instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${discount.message}`,
       });
       next(createError(500, `${discount.message}`));
     }
