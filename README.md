@@ -24,6 +24,7 @@
 - moment
 - jwt-simple
 - multer
+- @sendgrid/mail
 - body-parser
 - compression
 - cors

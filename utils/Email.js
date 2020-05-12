@@ -1,4 +1,4 @@
-const logger = require("../logger");
+const logger = require("../config/logger");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
