@@ -1,10 +1,10 @@
 module.exports = {
-  getDiscount: function (con, id) {
+  getDiscount: function (con, userId) {
     return con
       .query(
         `Select d.di_name, d.di_percentage from mp_dis_use du, mp_discount d, mp_user u
         where du.dius_fk_user = u.us_id and du.dius_fk_discount = d.di_id and du.dius_validity = 'Available' and u.us_id = $1`,
-        [id]
+        [userId]
       )
       .catch((error) => {
         return new Error(error);

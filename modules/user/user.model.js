@@ -1,4 +1,6 @@
 module.exports = {
+  // Registro / Inicio de sesión / Cambio de contraseña
+  // // Registro
   createUser: function (con, body) {
     return con
       .query(
@@ -22,6 +24,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // // Inicio de sesión
   validateUser: function (con, body) {
     return con
       .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
@@ -32,6 +35,17 @@ module.exports = {
         return new Error(error);
       });
   },
+  BO_validateUser: function (con, body) {
+    return con
+      .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
+        body.email,
+        body.password,
+      ])
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+  // // Cambio de contraseña
   updatePassword: function (con, id, password) {
     return con
       .query(
@@ -42,6 +56,7 @@ module.exports = {
         return new Error(error);
       });
   },
+  // Manipulación de datos de USER
   getUsers: function (con, body) {
     return con
       .query(
