@@ -84,7 +84,8 @@ CREATE TABLE MP_USER (
 CREATE TABLE MP_OFFICE (
   OF_id SERIAL PRIMARY KEY,
   OF_name VARCHAR NOT NULL,
-  OF_FK_direction INTEGER NOT NULL
+  OF_FK_direction INTEGER NOT NULL,
+  OF_FK_status INTEGER NOT NULL
 );
 
 CREATE TABLE MP_SHIPMENT (
@@ -92,6 +93,7 @@ CREATE TABLE MP_SHIPMENT (
   SH_tracking_id INTEGER NOT NULL,
   SH_shipment_date TIMESTAMP NOT NULL,
   SH_estimated_date_of_arrival TIMESTAMP,
+  SH_purpose VARCHAR,
   SH_total FLOAT NOT NULL,
   SH_qr_code VARCHAR,
   SH_FK_office_origin INTEGER NOT NULL,
@@ -122,6 +124,7 @@ CREATE TABLE MP_PACKAGE (
   PA_height FLOAT NOT NULL,
   PA_length FLOAT NOT NULL,
   PA_weight FLOAT NOT NULL,
+  PA_description VARCHAR,
   PA_cost FLOAT NOT NULL,
   PA_FK_shipment INTEGER NOT NULL,
   PA_FK_characteristic INTEGER

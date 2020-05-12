@@ -2,6 +2,7 @@ var createError = require("http-errors");
 const shipmentModel = require("./shipment.model");
 const receiverModel = require("../receiver/receiver.model");
 const packageModel = require("../package/package.model");
+const characteristicModel = require("../characteristic/characteristic.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
 const logger = require("../../config/logger");
@@ -9,7 +10,10 @@ const logger = require("../../config/logger");
 module.exports = {
   //CONSULTAR ENVIO
   getShipment: async function (req, res, next) {
-    let results = await shipmentModel.getShipment(req.con, req.params.id);
+    let results = await shipmentModel.getShipment(
+      req.con,
+      req.params.trackingId
+    );
     if (results instanceof Error) {
       logger.error({
         message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
@@ -17,7 +21,7 @@ module.exports = {
       next(createError(500, `${results.message}`));
     } else if (results.length == 0) {
       logger.info({
-        message: `STATUS 204 | NO CONTENT |  Shippment ${req.params.id} doesn't exist`,
+        message: `STATUS 204 | NO CONTENT | Shippment ${req.params.id} doesn't exist`,
       });
       res.status(204);
     } else {
@@ -36,7 +40,7 @@ module.exports = {
     );
     if (receiver instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${receiver.message}`,
       });
       next(createError(500, `${receiver.message}`));
     }
@@ -49,7 +53,7 @@ module.exports = {
     );
     if (shipment instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${shipment.message}`,
       });
       next(createError(500, `${shipment.message}`));
     }
@@ -66,7 +70,7 @@ module.exports = {
       );
       if (package instanceof Error) {
         logger.error({
-          message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+          message: `STATUS 500 | DATABASE ERROR | ${package.message}`,
         });
         next(createError(500, `${package.message}`));
       }
@@ -82,7 +86,7 @@ module.exports = {
       );
       if (option instanceof Error) {
         logger.error({
-          message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+          message: `STATUS 500 | DATABASE ERROR | ${option.message}`,
         });
         next(createError(500, `${option.message}`));
       }
@@ -96,7 +100,7 @@ module.exports = {
     );
     if (discount instanceof Error) {
       logger.error({
-        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+        message: `STATUS 500 | DATABASE ERROR | ${discount.message}`,
       });
       next(createError(500, `${discount.message}`));
     }
@@ -129,5 +133,63 @@ module.exports = {
       });
     }
     res.json(route);
+  },
+  getInvoice: async function (req, res, next) {
+    let promises = ([
+      shipment_options,
+      origin,
+      destination,
+      receiver,
+      packages,
+      discounts,
+    ] = await Promise.all([
+      shipmentModel.getShipmentOptions(req.con, req.params.trackingId),
+      shipmentModel.getShipmentOrigin(req.con, req.params.trackingId),
+      shipmentModel.getShipmentDestination(req.con, req.params.trackingId),
+      shipmentModel.getShipmentReceiver(req.con, req.params.trackingId),
+      shipmentModel.getShipmentPackages(req.con, req.params.trackingId),
+      shipmentModel.getShipmentDiscounts(req.con, req.params.trackingId),
+    ]));
+    for (p in promises) {
+      if (promises[p] instanceof Error) {
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${promises[p].message}`,
+        });
+        next(createError(500, promises[p].message));
+        return;
+      }
+    }
+    for (p in packages) {
+      package_characteristic = await characteristicModel.getCharacteristic(
+        req.con,
+        packages[p].pa_fk_characteristic
+      );
+      if (package_characteristic instanceof Error) {
+        logger.error({
+          message: `STATUS 500 | DATABASE ERROR | ${package_characteristic.message}`,
+        });
+        next(createError(500, package_characteristic.message));
+        return;
+      } else {
+        packages[p].characteristic = package_characteristic;
+      }
+    }
+    if (shipment_options.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | Shippment #${req.params.trackingId} doesn't exist`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | Invoice details for shipment #${req.params.trackingId} were found successfully`,
+      });
+    }
+    res.json({
+      options: shipment_options,
+      route: { origin: origin, destination: destination },
+      receiver: receiver,
+      packages: packages,
+      discounts: discounts,
+    });
   },
 };
