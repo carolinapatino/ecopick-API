@@ -4,6 +4,7 @@ const userController = require("./user.controller");
 const auth = require("../../middleware/auth");
 
 router.post("/register", userController.createUser);
-router.get("/login",/*auth.validateToken,*/userController.validateUser); 
+router.post("/login", userController.validateUser);
+router.post("/BO_login", userController.BO_validateUser);
 
 module.exports = router;

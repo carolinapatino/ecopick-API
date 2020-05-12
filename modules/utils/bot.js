@@ -40,7 +40,29 @@ bot.onText(/^\/start/, function (msg) {
 //Track - Consulta las rutas de forma textual
 bot.onText(/\/track (.+)/, function (msg, match) {
   let chatId = msg.chat.id;
-  bot.sendMessage(chatId, "You can know where is your package");
+  let order = match[1];
+  request(
+    `http://localhost:3000/mrpostel/api/shipment/${order}/route`,
+    function (error, response, body) {
+      // if (body == 0) {
+      if (response.statusCode == 204 && body == 0) {
+        bot.sendMessage(
+          chatId,
+          "There isn`t a order with ID " +
+            order +
+            ". Please check and try again"
+        );
+      } else if (!error && response.statusCode == 200) {
+        let route = JSON.parse(body);
+        bot.sendMessage(chatId, "Tracking ID: " + order);
+        bot.sendMessage(chatId, "Date: " + route[0].st_date);
+        bot.sendMessage(chatId, "Status: " + route[0].status);
+        bot.sendMessage(chatId, "Description: " + route[0].status_description);
+      } else {
+        console.log(error);
+      }
+    }
+  );
 });
 
 //Detail -Consulta el detalle del envio
@@ -52,13 +74,13 @@ bot.onText(/\/detail (.+)/, function (msg, match) {
     response,
     body
   ) {
-    let detail = JSON.parse(body);
-    if (body == 0) {
+    if (body == 0 && response.statusCode == 204) {
       bot.sendMessage(
         chatId,
         "There isn`t a order with ID " + order + ". Please check and try again"
       );
     } else if (!error && response.statusCode == 200) {
+      let detail = JSON.parse(body);
       bot.sendMessage(chatId, "Tracking ID: " + detail[0].trackingid);
       bot.sendMessage(chatId, "Delivered date: " + detail[0].delivered);
       bot.sendMessage(chatId, "Arrival date: " + detail[0].arrival);

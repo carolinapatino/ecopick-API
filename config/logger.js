@@ -13,7 +13,7 @@ module.exports = createLogger({
         })(),
         format.colorize({ colors: { info: "blue" } }),
         format.timestamp({
-          format: "YY-MM-DD HH:MM:SS",
+          format: "YY-MM-DD hh:mm:ss",
         }),
         format.ms(),
         format.printf((level) => {
@@ -23,5 +23,6 @@ module.exports = createLogger({
         })
       ),
     }),
+    new transports.File({ filename: "combined.log" }),
   ],
 });
