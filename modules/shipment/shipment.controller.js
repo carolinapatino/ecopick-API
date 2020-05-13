@@ -23,7 +23,7 @@ module.exports = {
       logger.info({
         message: `STATUS 204 | NO CONTENT | Shippment ${req.params.trackingId} doesn't exist`,
       });
-     res.status(204);
+      res.status(204);
     } else {
       logger.info({
         message: `STATUS 200 | OK | Detail info for shipment #${req.params.trackingId} was found successfully`,

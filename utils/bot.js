@@ -2,7 +2,8 @@ var TelegramBot = require("node-telegram-bot-api");
 var token = process.env.BOT_TOKEN;
 var bot = new TelegramBot(token, { polling: true });
 var request = require("request");
-var shipmentModel = require("../modules/shipment/shipment.model");
+var moment = require("moment");
+const logger = require("../config/logger");
 
 //Bienvenida con botones
 bot.onText(/^\/start/, function (msg) {
@@ -22,7 +23,7 @@ bot.onText(/^\/start/, function (msg) {
       },
     }
   );
-
+  logger.info({ message: "BOT | START" });
   bot.on("callback_query", function onCallbackQuery(action) {
     const data = action.data;
     const msg = action.message;
@@ -41,35 +42,48 @@ bot.onText(/^\/start/, function (msg) {
 bot.onText(/\/track (.+)/, function (msg, match) {
   let chatId = msg.chat.id;
   let order = match[1];
-  request(
-    `http://localhost:3000/mrpostel/api/shipment/${order}/route`,
-    function (error, response, body) {
-      // if (body == 0) {
-      if (response.statusCode == 204 && body == 0) {
+  request(`${process.env.API_URL}/shipment/${order}/route`, function (
+    error,
+    response,
+    body
+  ) {
+    // if (body == 0) {
+    if (response.statusCode == 204 && body == 0) {
+      bot.sendMessage(
+        chatId,
+        "There isn`t an order with ID " + order + ". Please check and try again"
+      );
+      logger.info({ message: "BOT | /TRACK ORDER ERROR: UNKNOWN ORDER" });
+    } else if (!error && response.statusCode == 200) {
+      let route = JSON.parse(body);
+      for (var i = 0; i < route.length; i++) {
         bot.sendMessage(
           chatId,
-          "There isn`t a order with ID " +
+          "Tracking ID: " +
             order +
-            ". Please check and try again"
+            "\n" +
+            "Date: " +
+            moment(route[i].st_date).format("MM/DD/YYYY") +
+            "\n" +
+            "Status: " +
+            route[i].status +
+            "\n" +
+            "Description: " +
+            route[i].status_description
         );
-      } else if (!error && response.statusCode == 200) {
-        let route = JSON.parse(body);
-        bot.sendMessage(chatId, "Tracking ID: " + order);
-        bot.sendMessage(chatId, "Date: " + route[0].st_date);
-        bot.sendMessage(chatId, "Status: " + route[0].status);
-        bot.sendMessage(chatId, "Description: " + route[0].status_description);
-      } else {
-        console.log(error);
       }
+      logger.info({ message: `BOT | /TRACK ORDER ${order} SUCCESSFUL` });
+    } else {
+      logger.error({ message: "BOT | /TRACK ORDER ERROR: UNKNOWN" });
     }
-  );
+  });
 });
 
 //Detail -Consulta el detalle del envio
 bot.onText(/\/detail (.+)/, function (msg, match) {
   let chatId = msg.chat.id;
   let order = match[1];
-  request(`http://localhost:3000/mrpostel/api/shipment/${order}`, function (
+  request(`${process.env.API_URL}/shipment/${order}`, function (
     error,
     response,
     body
@@ -77,20 +91,41 @@ bot.onText(/\/detail (.+)/, function (msg, match) {
     if (body == 0 && response.statusCode == 204) {
       bot.sendMessage(
         chatId,
-        "There isn`t a order with ID " + order + ". Please check and try again"
+        "There isn`t an order with ID " + order + ". Please check and try again"
       );
+      logger.info({ message: "BOT | /DETAIL ORDER ERROR: UNKNOWN ORDER" });
     } else if (!error && response.statusCode == 200) {
       let detail = JSON.parse(body);
-      bot.sendMessage(chatId, "Tracking ID: " + detail[0].trackingid);
-      bot.sendMessage(chatId, "Delivered date: " + detail[0].delivered);
-      bot.sendMessage(chatId, "Arrival date: " + detail[0].arrival);
-      bot.sendMessage(chatId, "Amount: " + detail[0].amount + " $");
-      bot.sendMessage(chatId, "Office: " + detail[0].office);
-      bot.sendMessage(chatId, "Direction: " + detail[0].direction);
-      bot.sendMessage(chatId, "User: " + detail[0].user);
-      bot.sendMessage(chatId, "Receiver: " + detail[0].receiver);
+      bot.sendMessage(
+        chatId,
+        "Tracking ID: " +
+          detail[0].trackingid +
+          "\n" +
+          "Delivered date: " +
+          moment(detail[0].delivered).format("MM/DD/YYYY") +
+          "\n" +
+          "Arrival date: " +
+          moment(detail[0].arrival).format("MM/DD/YYYY") +
+          "\n" +
+          "Amount: " +
+          detail[0].amount +
+          " $" +
+          "\n" +
+          "Office: " +
+          detail[0].office +
+          "\n" +
+          "Direction: " +
+          detail[0].direction +
+          "\n" +
+          "User: " +
+          detail[0].user +
+          "\n" +
+          "Receiver: " +
+          detail[0].receiver
+      );
+      logger.info({ message: `BOT | /DETAIL ORDER ${order} SUCCESSFUL` });
     } else {
-      console.log(error);
+      logger.error({ message: "BOT | /DETAIL ORDER ERROR: UNKNOWN" });
     }
   });
 });
