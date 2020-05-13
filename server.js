@@ -1,7 +1,7 @@
 const app = require("./app");
 const logger = require("./config/logger");
 const port = 3000;
-const bot = require("./modules/utils/bot");
+const bot = require("./utils/bot");
 
 // El servidor levanta la aplicación
 app.listen(port, () => {
@@ -9,4 +9,3 @@ app.listen(port, () => {
     message: `App listening`,
   });
 });
-

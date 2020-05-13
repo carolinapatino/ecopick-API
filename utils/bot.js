@@ -2,7 +2,7 @@ var TelegramBot = require("node-telegram-bot-api");
 var token = process.env.BOT_TOKEN;
 var bot = new TelegramBot(token, { polling: true });
 var request = require("request");
-var shipmentModel = require("../shipment/shipment.model");
+var shipmentModel = require("../modules/shipment/shipment.model");
 
 //Bienvenida con botones
 bot.onText(/^\/start/, function (msg) {
