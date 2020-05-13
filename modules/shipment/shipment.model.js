@@ -16,6 +16,33 @@ module.exports = {
         return new Error(error);
       });
   },
+  //Obtener envios dado un usuario
+  getShipmentbyUser: function (con, userId) {
+    return con
+      .query(
+        `SELECT env.*, stop.* 
+        FROM 
+        (SELECT sh_id, sh_tracking_id as TrackingID ,sh_shipment_date as Delivered, sh_estimated_date_of_arrival as Arrival , sh_purpose as purpose,sh_total as Amount ,
+                o.of_name as Office, 
+                CONCAT(d.di_primary_line, CONCAT(', ', CONCAT (d.di_secondary_line, CONCAT ( ', ', CONCAT (d.di_city, CONCAT (', ', CONCAT (d.di_state,CONCAT (', ', CONCAT (d.di_country,  CONCAT(', ',d.di_zip_code)))))))))) AS Direction,
+                CONCAT (r.re_first_name, CONCAT (' ', r.re_last_name)) AS Receiver
+                FROM mp_shipment, mp_office o, mp_direction d, mp_user u, mp_receiver r 
+         WHERE sh_fk_office_origin = o.of_id and sh_fk_direction_destination = d.di_id and sh_fk_user = u.us_id and sh_fk_receiver = r.re_id and sh_fk_user = $1) env
+         
+        left outer join 
+        (SELECT st.st_fk_shipment as envio, st.st_date, st.st_name, st.st_description, st.parada
+        FROM mp_shipment sh 
+        left outer join (Select st.*, s.*,  CONCAT(d.di_primary_line, CONCAT(', ', CONCAT (d.di_secondary_line, CONCAT ( ', ', CONCAT (d.di_city, CONCAT (', ', CONCAT (d.di_state,CONCAT (', ', CONCAT (d.di_country,  CONCAT(', ',d.di_zip_code)))))))))) AS parada
+               from mp_stop st, mp_status s, mp_direction d where st.st_fk_status = s.st_id and d.di_id = st.st_fk_direction)  st
+        on st.st_fk_shipment = sh.sh_id) stop
+        on stop.envio = env.sh_id`,
+        [userId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+
   // Insertar envio
   createShipment: function (con, body, receiver) {
     return con
