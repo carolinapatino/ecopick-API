@@ -5,6 +5,7 @@ const packageModel = require("../package/package.model");
 const characteristicModel = require("../characteristic/characteristic.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
+const Route = require("../../utils/Route");
 const logger = require("../../config/logger");
 
 module.exports = {
@@ -108,6 +109,13 @@ module.exports = {
     logger.info({
       message: `STATUS 201 | CREATED | The shipment ${req.body.shipment.trackingID} has been registered successfully`,
     });
+
+    new Route(
+      req.body.shipment.trackingID,
+      req.body.shipment.office,
+      req.body.shipment.direction
+    ).generate();
+
     res.status(201);
     res.json({});
   },

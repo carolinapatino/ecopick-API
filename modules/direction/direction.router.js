@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const directionController = require("./direction.controller");
-const auth = require("../../middleware/auth");
+
+router.get("/:id", directionController.getDirection);
 
 module.exports = router;

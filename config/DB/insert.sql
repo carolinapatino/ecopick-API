@@ -134,7 +134,7 @@ insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Poste
 
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('Service price', 50.00);
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('Shipping price', 20.00);
-insert into MP_CONFIGURATION (CO_name, CO_value) values ('Tiempo de salida', 5);
+insert into MP_CONFIGURATION (CO_name, CO_value) values ('Delivery start', 2);
 /*insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
