@@ -7,7 +7,6 @@ var createError = require("http-errors");
 
 module.exports = {
   // Registro / Inicio de sesión / Recuperación de contraseña
-  // // Registro
   createUser: async function (req, res, next) {
     let user = await userModel.createUser(req.con, req.body);
     if (user instanceof Error) {
@@ -48,7 +47,6 @@ module.exports = {
       }
     }
   },
-  // // Inicio de sesión
   validateUser: async function (req, res, next) {
     let results = await userModel.validateUser(req.con, req.body);
     if (results instanceof Error) {
@@ -119,7 +117,6 @@ module.exports = {
       res.json({ token: auth.createToken(), results });
     }
   },
-  // // Recuperación de contraseña
   forgotPassword: async function (req, res, next) {
     var password = "";
     var characters =
@@ -160,7 +157,6 @@ module.exports = {
     }
   },
   // Manipulación de datos de USER
-  // // Obtención de todos los usuarios de un cargo
   getUsers: async function (req, res, next) {
     let users = await userModel.getUsers(req.con, req.body);
     if (users instanceof Error) {
@@ -180,7 +176,25 @@ module.exports = {
     }
     res.json(users);
   },
-  // // Asignación de descuento
+  getUser: async function (req, res, next) {
+    let user = await userModel.getUser(req.con, req.params.id);
+    if (user instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${user.message}`,
+      });
+      next(createError(500, `${user.message}`));
+    } else if (user.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | User ${req.params.id} doesn't exist`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | User ${req.body.charge} was sucessfully consulted`,
+      });
+    }
+    res.json(user);
+  },
   assignDiscount: async function (req, res, next) {
     let assignedDiscount = await discountModel.assignDiscount(
       req.con,

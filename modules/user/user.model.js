@@ -71,4 +71,17 @@ module.exports = {
         return new Error(error);
       });
   },
+  getUser: function (con, id) {
+    return con
+      .query(
+        `SELECT US_FIRST_NAME, US_SECOND_NAME, US_LAST_NAME,
+          US_SECOND_LAST_NAME, US_EMAIL, US_PHONE_NUMBER
+        FROM MP_USER
+        WHERE US_ID = $1;`,
+        [id]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
