@@ -8,7 +8,11 @@ async function getDirections(start, finish) {
       `https://us1.locationiq.com/v1/directions/driving/${start.lon},${start.lat};${finish.lon},${finish.lat}?key=${process.env.LOCATIONIQ_API_KEY}&steps=true&annotations=true`
     )
     .then((response) => {
-      for (var i = 0; i < response.data.routes[0].legs[0].steps.length; i++) {
+      for (
+        var i = 1;
+        i < response.data.routes[0].legs[0].steps.length - 1;
+        i++
+      ) {
         if (i % 10 == 0 && response.data.routes[0].legs[0].steps.length > 9) {
           route.push(
             response.data.routes[0].legs[0].steps[i].intersections[0].location
@@ -73,6 +77,17 @@ async function transformLatLonToDirection(lat, lon) {
   return transformedDir;
 }
 
+async function transformRoutes(routesLatLon) {
+  let route = [];
+  for (var i = 0; i < routesLatLon.length; i++) {
+    route.push(
+      await transformLatLonToDirection(routesLatLon[i][1], routesLatLon[i][0])
+    );
+  }
+  var filtered = route.filter((x) => x !== undefined);
+  return filtered;
+}
+
 module.exports = {
   generateRoute: async (origin, destination) => {
     originLatLon = await transformDirectionToLatLon(
@@ -86,12 +101,7 @@ module.exports = {
         destination.di_state
     );
     routeLatLon = await getDirections(originLatLon, destinationLatLon);
-    let route = [];
-    for (var i = 0; i < routeLatLon.length; i++) {
-      route.push(
-        await transformLatLonToDirection(routeLatLon[i][1], routeLatLon[i][0])
-      );
-    }
+    let route = await transformRoutes(routeLatLon);
     return route;
   },
 };

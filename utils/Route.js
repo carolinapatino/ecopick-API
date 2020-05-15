@@ -39,7 +39,9 @@ module.exports = class Route {
       );
       let route = await location.generateRoute(origin, destination);
       logger.info({
-        message: `ROUTE GENERATION | Number of stops: ${route.length} (considering origin and destination)`,
+        message: `ROUTE GENERATION | Number of stops: ${
+          route.length + 2
+        } (considering origin and destination)`,
       });
     }, deliveryStart.co_value * 10000);
   }
