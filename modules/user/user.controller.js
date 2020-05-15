@@ -129,7 +129,7 @@ module.exports = {
     }
     let result = await userModel.updatePassword(
       req.con,
-      req.params.id,
+      req.body.email,
       password
     );
     if (result instanceof Error) {
@@ -145,12 +145,12 @@ module.exports = {
         res.status(204);
       } else {
         new Email(
-          result[0].us_email,
+          req.body.email,
           result[0].us_first_name,
           "Password"
         ).passwordChange(password);
         logger.info({
-          message: `STATUS 200 | OK | The password for user ${req.params.id} was changed successfully`,
+          message: `STATUS 200 | OK | The password for user ${req.body.email} was changed successfully`,
         });
       }
       res.json({});

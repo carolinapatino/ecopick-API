@@ -46,11 +46,11 @@ module.exports = {
       });
   },
   // // Cambio de contraseña
-  updatePassword: function (con, id, password) {
+  updatePassword: function (con, email, password) {
     return con
       .query(
-        "UPDATE MP_USER SET US_password = $1 WHERE US_id=$2 RETURNING US_email, US_first_name",
-        [password, id]
+        "UPDATE MP_USER SET US_password = $1 WHERE US_email=$2 RETURNING US_first_name",
+        [password, email]
       )
       .catch((error) => {
         return new Error(error);
