@@ -190,7 +190,7 @@ module.exports = {
       res.status(204);
     } else {
       logger.info({
-        message: `STATUS 200 | OK | User ${req.body.charge} was sucessfully consulted`,
+        message: `STATUS 200 | OK | User ${req.params.id} was sucessfully consulted`,
       });
     }
     res.json(user);

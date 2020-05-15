@@ -75,7 +75,7 @@ module.exports = {
     return con
       .query(
         `SELECT US_FIRST_NAME, US_SECOND_NAME, US_LAST_NAME,
-          US_SECOND_LAST_NAME, US_EMAIL, US_PHONE_NUMBER
+          US_SECOND_LAST_NAME, US_IDENTIFICATION, US_EMAIL, US_PHONE_NUMBER
         FROM MP_USER
         WHERE US_ID = $1;`,
         [id]
