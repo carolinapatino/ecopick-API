@@ -2,6 +2,8 @@ const location = require("./Location");
 const request = require("request");
 const logger = require("../config/logger");
 
+const officeController = require("../modules/office/office.controller");
+
 module.exports = class Route {
   constructor(trackingId, originID, destinationID) {
     this.shipment = trackingId;
@@ -20,6 +22,20 @@ module.exports = class Route {
       });
     });
   }
+  async getRoute(origin, destination) {
+    logger.info({
+      message: `ROUTE GENERATION | Shipment #${this.shipment} | Starts`,
+    });
+    let route = await location.generateRoute(origin, destination);
+    logger.info({
+      message: `ROUTE GENERATION | Shipment #${
+        this.shipment
+      } | Number of stops: ${
+        route.length + 2
+      } (considering origin and destination)`,
+    });
+    return route;
+  }
   async generate() {
     let deliveryStart = await this.doRequest(
       `${process.env.API_URL}/configuration/deliveryStart`
@@ -28,21 +44,13 @@ module.exports = class Route {
       message: `ROUTE GENERATION | Shipment #${this.shipment} | Starting in ${deliveryStart.co_value} minutes`,
     });
     setTimeout(async () => {
-      logger.info({
-        message: `ROUTE GENERATION | Shipment #${this.shipment} | Starts`,
-      });
       let origin = await this.doRequest(
         `${process.env.API_URL}/office/${this.originID}/direction`
       );
       let destination = await this.doRequest(
         `${process.env.API_URL}/direction/${this.destinationID}`
       );
-      let route = await location.generateRoute(origin, destination);
-      logger.info({
-        message: `ROUTE GENERATION | Number of stops: ${
-          route.length + 2
-        } (considering origin and destination)`,
-      });
-    }, deliveryStart.co_value * 10000);
+      let route = await this.getRoute(origin, destination);
+    }, deliveryStart.co_value * 6);
   }
 };
