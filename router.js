@@ -4,6 +4,7 @@ const characteristicRouter = require("./modules/characteristic/characteristic.ro
 const configurationRouter = require("./modules/configuration/configuration.router");
 const directionRouter = require("./modules/direction/direction.router");
 const discountRouter = require("./modules/discount/discount.router");
+const languageRouter = require("./modules/language/language.router");
 const officeRouter = require("./modules/office/office.router");
 const optionRouter = require("./modules/option/option.router");
 const packageRouter = require("./modules/package/package.router");
@@ -18,6 +19,7 @@ router.use("/characteristic", characteristicRouter);
 router.use("/configuration", configurationRouter);
 router.use("/direction", directionRouter);
 router.use("/discount", discountRouter);
+router.use("/language", languageRouter);
 router.use("/office", officeRouter);
 router.use("/option", optionRouter);
 router.use("/package", packageRouter);
