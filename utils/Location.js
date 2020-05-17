@@ -66,7 +66,7 @@ async function transformLatLonToDirection(lat, lon) {
         city: response.data.address.city,
         state: response.data.address.state,
         country: response.data.address.country,
-        postcode: response.data.address.postcode,
+        zip_code: response.data.address.postcode,
       };
     })
     .catch((error) => {

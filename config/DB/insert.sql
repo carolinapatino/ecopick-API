@@ -24,8 +24,8 @@ insert into MP_LANGUAGE (LA_name, LA_iso_code) values ('Afrikaans','AF');
 
 /* MP_STATUS */ 
 
-insert into MP_STATUS (ST_name, ST_description) values ('Out of delivery', 'Left the office');
-insert into MP_STATUS (ST_name, ST_description) values ('In transit', 'The package is on the way');
+insert into MP_STATUS (ST_name, ST_description) values ('Out For Delivery', 'Left the office');
+insert into MP_STATUS (ST_name, ST_description) values ('In Transit', 'The package is on the way');
 insert into MP_STATUS (ST_name, ST_description) values ('Delivered', 'The package arrived at its destination');
 insert into MP_STATUS (ST_name, ST_description) values ('Enabled', 'This account has full access to all the functionalities of the system');
 insert into MP_STATUS (ST_name, ST_description) values ('Disabled', 'This account has limited access to all the functionalities of the system.');
@@ -134,7 +134,7 @@ insert into MP_OFFICE (OF_name, OF_FK_DIRECTION, OF_FK_STATUS) values ('Mr.Poste
 
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('Service price', 50.00);
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('Shipping price', 20.00);
-insert into MP_CONFIGURATION (CO_name, CO_value) values ('Delivery start', 2);
+insert into MP_CONFIGURATION (CO_name, CO_value) values ('Delivery start', 5);
 /*insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
