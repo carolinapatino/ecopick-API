@@ -21,12 +21,12 @@ module.exports = {
       next(createError(500, `${results.message}`));
     } else if (results.length == 0) {
       logger.info({
-        message: `STATUS 204 | NO CONTENT | Shippment ${req.params.id} doesn't exist`,
+        message: `STATUS 204 | NO CONTENT | Shippment ${req.params.trackingId} doesn't exist`,
       });
       res.status(204);
     } else {
       logger.info({
-        message: `STATUS 200 | OK | Detail info for shipment #${req.params.id} was found successfully`,
+        message: `STATUS 200 | OK | Detail info for shipment #${req.params.trackingId} was found successfully`,
       });
     }
     res.json(results);

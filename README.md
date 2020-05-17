@@ -7,14 +7,7 @@
 
 1. Crear una base de datos en postgresql
 2. Correr los scripts que se encuentran en config/DB/ en el siguiente orden: create, alter, insert
-3. Crear un archivo .env en el root del proyecto con los siguientes campos:
-
-- NODE_ENV=development
-- PORT=3000
-- DB_PORT=5432
-- DB_HOST=localhost
-- SECRET_TOKEN con cualquier codigo que se desee colocar
-- DB_USER, DB_PASSWORD, DB_NAME con los datos de la BD creada en postgresql
+3. Crear un archivo .env en el root del proyecto
 
 ### Correr el proyecto
 
@@ -24,17 +17,21 @@
 ### Dependencias del proyecto
 
 - Express
+- Axios
 - Lob
 - dotenv
 - pg-promise
 - http-errors
 - moment
 - jwt-simple
+- multer
+- @sendgrid/mail
 - body-parser
 - compression
 - cors
 - winston
 - humps
+- node-telegram-bot-api
 
 ### Dependencias de desarrollo
 
