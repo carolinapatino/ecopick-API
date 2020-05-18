@@ -46,11 +46,11 @@ module.exports = {
       });
   },
   // // Cambio de contraseña
-  updatePassword: function (con, id, password) {
+  updatePassword: function (con, email, password) {
     return con
       .query(
-        "UPDATE MP_USER SET US_password = $1 WHERE US_id=$2 RETURNING US_email, US_first_name",
-        [password, id]
+        "UPDATE MP_USER SET US_password = $1 WHERE US_email=$2 RETURNING US_first_name",
+        [password, email]
       )
       .catch((error) => {
         return new Error(error);
@@ -66,6 +66,19 @@ module.exports = {
         FROM MP_USER U, MP_STATUS S
         WHERE U.US_FK_STATUS = S.ST_ID AND US_CHARGE = $1;`,
         [body.charge]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+  getUser: function (con, id) {
+    return con
+      .query(
+        `SELECT US_FIRST_NAME, US_SECOND_NAME, US_LAST_NAME,
+          US_SECOND_LAST_NAME, US_IDENTIFICATION, US_EMAIL, US_PHONE_NUMBER
+        FROM MP_USER
+        WHERE US_ID = $1;`,
+        [id]
       )
       .catch((error) => {
         return new Error(error);
