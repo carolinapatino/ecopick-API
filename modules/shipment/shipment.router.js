@@ -16,4 +16,6 @@ router.get(
   shipmentController.getInvoice
 );
 
+router.get("/", auth.validateToken, shipmentController.getAllShipments);
+
 module.exports = router;
