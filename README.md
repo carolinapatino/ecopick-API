@@ -61,17 +61,17 @@ npm run dev
 
 ### Dependencias de desarrollo
 
-@babel/cli: ^7.8.4
-babel-preset-env: ^1.7.0
-eslint: ^6.8.0
-eslint-config-prettier: ^6.11.0
-eslint-plugin-import: ^2.20.2
-eslint-plugin-prettier: ^3.1.3
-jest: ^25.4.0
-nodemon: ^2.0.3
-prettier: ^2.0.5
-superagent: ^5.2.2
-supertest: ^4.0.2
+- @babel/cli: ^7.8.4
+- babel-preset-env: ^1.7.0
+- eslint: ^6.8.0
+- eslint-config-prettier: ^6.11.0
+- eslint-plugin-import: ^2.20.2
+- eslint-plugin-prettier: ^3.1.3
+- jest: ^25.4.0
+- nodemon: ^2.0.3
+- prettier: ^2.0.5
+- superagent: ^5.2.2
+- supertest: ^4.0.2
 
 ## Developers 👩👩👩
 
