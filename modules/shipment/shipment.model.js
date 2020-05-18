@@ -1,16 +1,16 @@
 module.exports = {
   // Obtener datos principales del envio
-  getShipment: function (con, id) {
+  getShipment: function (con, trackingId) {
     return con
       .query(
         `SELECT sh_tracking_id as TrackingID ,sh_shipment_date as Delivered, sh_estimated_date_of_arrival as Arrival , sh_purpose as purpose,sh_total as Amount ,
         o.of_name as Office, 
         CONCAT(d.di_primary_line, CONCAT(', ', CONCAT (d.di_secondary_line, CONCAT ( ', ', CONCAT (d.di_city, CONCAT (', ', CONCAT (d.di_state,CONCAT (', ', CONCAT (d.di_country,  CONCAT(', ',d.di_zip_code)))))))))) AS Direction,
-        CONCAT (u.us_first_name, CONCAT (' ' , u.us_last_name))  AS User,
+        CONCAT (u.us_first_name, CONCAT (' ' , u.us_last_name))  AS User, US_ID AS userID,
         CONCAT (r.re_first_name, CONCAT (' ', r.re_last_name)) AS Receiver
         FROM mp_shipment, mp_office o, mp_direction d, mp_user u, mp_receiver r 
         WHERE sh_tracking_id=$1 and sh_fk_office_origin = o.of_id and sh_fk_direction_destination = d.di_id and sh_fk_user = u.us_id and sh_fk_receiver = r.re_id`,
-        [id]
+        [trackingId]
       )
       .catch((error) => {
         return new Error(error);
@@ -45,7 +45,8 @@ module.exports = {
           DI_PRIMARY_LINE AS primaryLine, DI_SECONDARY_LINE AS secondaryLine, DI_ZIP_CODE AS zipCode,
           DI_CITY AS CITY, DI_STATE AS STATE, DI_COUNTRY AS COUNTRY
           FROM MP_STOP STO, MP_DIRECTION D, MP_STATUS STA, MP_SHIPMENT S
-          WHERE STO.ST_FK_status = STA.ST_id AND STO.ST_FK_direction = D.DI_id AND STO.ST_FK_SHIPMENT = S.SH_id AND S.SH_tracking_id = $1;`,
+          WHERE STO.ST_FK_status = STA.ST_id AND STO.ST_FK_direction = D.DI_id AND STO.ST_FK_SHIPMENT = S.SH_id AND S.SH_tracking_id = $1
+          ORDER BY STO.ST_date;`,
         [trackingId]
       )
       .catch((error) => {

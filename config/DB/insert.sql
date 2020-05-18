@@ -89,10 +89,10 @@ insert into MP_RECEIVER (RE_identification, RE_first_name, RE_second_name, RE_la
 
 /* MP_CHARACTERISTIC */ 
 
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Fragil',20.00,'$');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Inflamable',40.00,'$');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Animal vivo',0.40,'%');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Comida',0.10,'%');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Fragile',20.00,'$');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Flammable',40.00,'$');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Living animal',0.40,'%');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Food',0.10,'%');
 /* insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');

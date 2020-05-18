@@ -31,6 +31,7 @@
 - cors
 - winston
 - humps
+- node-telegram-bot-api
 
 ### Dependencias de desarrollo
 
