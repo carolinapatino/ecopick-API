@@ -156,7 +156,7 @@ module.exports = {
       res.json({});
     }
   },
-  // Manipulación de datos de USER
+  // Manipulación de datos del usuario
   getUsers: async function (req, res, next) {
     let users = await userModel.getUsers(req.con, req.body);
     if (users instanceof Error) {
@@ -219,7 +219,7 @@ module.exports = {
       res.json({});
     }
   },
-  // Envio de correo con archivo
+  // Envio de correos
   sendAttachment: async function (req, res, next) {
     new Email(req.body.userEmail, req.body.userName, "Attachment").invoice(
       req.file

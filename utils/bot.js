@@ -47,7 +47,6 @@ bot.onText(/\/track (.+)/, function (msg, match) {
     response,
     body
   ) {
-    // if (body == 0) {
     if (response.statusCode == 204 && body == 0) {
       bot.sendMessage(
         chatId,

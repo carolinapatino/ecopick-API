@@ -11,7 +11,7 @@ router.post("/login", userController.validateUser);
 router.post("/BO_login", userController.BO_validateUser);
 router.put("/newPassword", userController.forgotPassword);
 
-// Manipulación de datos de la tabla USER
+// Manipulación de datos del usuario
 router.get("/", auth.validateToken, userController.getUsers);
 router.get("/:id", auth.validateToken, userController.getUser);
 router.post(
@@ -20,9 +20,10 @@ router.post(
   userController.assignDiscount
 );
 
-// Envio de correo con archivo
+// Envio de correos con archivo
 router.post(
   "/sendAttachment",
+  auth.validateToken,
   upload.single("file"),
   userController.sendAttachment
 );
