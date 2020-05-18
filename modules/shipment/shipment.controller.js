@@ -1,5 +1,6 @@
 var createError = require("http-errors");
 const shipmentModel = require("./shipment.model");
+const shipmentService = require("./shipment.service");
 const receiverModel = require("../receiver/receiver.model");
 const packageModel = require("../package/package.model");
 const characteristicModel = require("../characteristic/characteristic.model");
@@ -108,6 +109,15 @@ module.exports = {
     logger.info({
       message: `STATUS 201 | CREATED | The shipment ${req.body.shipment.trackingID} has been registered successfully`,
     });
+
+    shipmentService.generateShipmentRoute(
+      req.con,
+      shipment[0].sh_id,
+      req.body.shipment.trackingID,
+      req.body.shipment.office,
+      req.body.shipment.direction
+    );
+
     res.status(201);
     res.json({});
   },

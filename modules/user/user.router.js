@@ -9,7 +9,7 @@ var upload = multer({ storage: multer.memoryStorage({}) });
 router.post("/register", userController.createUser);
 router.post("/login", userController.validateUser);
 router.post("/BO_login", userController.BO_validateUser);
-router.put("/newPassword", auth.validateToken, userController.forgotPassword);
+router.put("/newPassword", userController.forgotPassword);
 
 // Manipulación de datos de la tabla USER
 router.get("/", auth.validateToken, userController.getUsers);
