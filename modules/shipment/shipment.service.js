@@ -37,7 +37,7 @@ async function createRoute(
   status = await statusModel.getStatusByName(con, "Out For Delivery");
   await stopModel.createStop(
     con,
-    startDate.format("YYYY-MM-DD hh:mm:ss"),
+    startDate.format("YYYY-MM-DD HH:mm:ss"),
     shipmentId,
     status[0].st_id,
     originId
@@ -50,7 +50,7 @@ async function createRoute(
     status = await statusModel.getStatusByName(con, "In Transit");
     await stopModel.createStop(
       con,
-      stopDate.format("YYYY-MM-DD hh:mm:ss"),
+      stopDate.format("YYYY-MM-DD HH:mm:ss"),
       shipmentId,
       status[0].st_id,
       stopDirection[0].di_id
@@ -59,7 +59,7 @@ async function createRoute(
   status = await statusModel.getStatusByName(con, "Delivered");
   await stopModel.createStop(
     con,
-    endDate.format("YYYY-MM-DD hh:mm:ss"),
+    endDate.format("YYYY-MM-DD HH:mm:ss"),
     shipmentId,
     status[0].st_id,
     destinationId
@@ -89,8 +89,8 @@ async function generateShipmentRoute(
     );
     logger.info({
       message: `ROUTE GENERATION | Shipment #${trackingID} |
-                  Route start: ${startDate.format("YYYY-MM-DD hh:mm:ss")}
-                  Route end: ${endDate.format("YYYY-MM-DD hh:mm:ss")}`,
+                  Route start: ${startDate.format("YYYY-MM-DD HH:mm:ss")}
+                  Route end: ${endDate.format("YYYY-MM-DD HH:mm:ss")}`,
     });
     await createRoute(
       con,
