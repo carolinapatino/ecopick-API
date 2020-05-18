@@ -213,11 +213,11 @@ insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) val
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 9:00:00', 8, 2, 14);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 10:50:00', 8, 2, 15);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 1, 24);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 25);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 26);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 27);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 28);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 3, 29);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-28 12:00:00', 9, 2, 25);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-29 12:00:00', 9, 2, 26);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-30 12:00:00', 9, 2, 27);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-05-01 12:00:00', 9, 2, 28);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-02 12:00:00', 9, 3, 29);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-20 11:00:00', 10, 1, 10);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-21 12:00:00', 10, 2, 8);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-23 07:00:00', 10, 2, 7);
