@@ -92,7 +92,7 @@ CREATE TABLE MP_OFFICE (
 
 CREATE TABLE MP_SHIPMENT (
   SH_id SERIAL PRIMARY KEY,
-  SH_tracking_id INTEGER NOT NULL,
+  SH_tracking_id SERIAL,
   SH_shipment_date TIMESTAMP NOT NULL,
   SH_estimated_date_of_arrival TIMESTAMP,
   SH_purpose VARCHAR,
