@@ -6,6 +6,7 @@ const packageModel = require("../package/package.model");
 const characteristicModel = require("../characteristic/characteristic.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
+const directionModel = require ("../direction/direction.model");
 const logger = require("../../config/logger");
 
 module.exports = {
@@ -45,12 +46,24 @@ module.exports = {
       });
       next(createError(500, `${receiver.message}`));
     }
+    //Se inserta una dirección y retorna su ID
+    let direction = await directionModel.createDirection(
+      req.con,
+      req.body.direction
+    );
+    if (direction instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${direction.message}`,
+      });
+      next(createError(500, `${direction.message}`));
+    }
 
     //Se inserta un envío, con la FK del receptor
     let shipment = await shipmentModel.createShipment(
       req.con,
       req.body.shipment,
-      receiver
+      receiver,
+      direction
     );
     if (shipment instanceof Error) {
       logger.error({
@@ -115,7 +128,7 @@ module.exports = {
       shipment[0].sh_id,
       req.body.shipment.trackingID,
       req.body.shipment.office,
-      req.body.shipment.direction
+      direction[0].di_id
     );
 
     res.status(201);
