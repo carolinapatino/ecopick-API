@@ -1,5 +1,4 @@
 module.exports = {
-  // Obtener datos principales del envio
   getShipment: function (con, trackingId) {
     return con
       .query(
@@ -16,7 +15,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // Insertar envio
+
   createShipment: function (con, body, receiver) {
     return con
       .query(
@@ -37,7 +36,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // Obtener ruta de envio
+
   getShipmentRoute: function (con, trackingId) {
     return con
       .query(
@@ -53,8 +52,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // Funciones necesarias para llenar los datos de una factura
-  // // Obtener origen
+
   getShipmentOrigin: function (con, trackingId) {
     return con
       .query(
@@ -67,7 +65,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // // Obtener destino
+
   getShipmentDestination: function (con, trackingId) {
     return con
       .query(
@@ -80,7 +78,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // // Obtener receptor
+
   getShipmentReceiver: function (con, trackingId) {
     return con
       .query(
@@ -94,7 +92,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // // Obtener paquetes
+
   getShipmentPackages: function (con, trackingId) {
     return con
       .query(
@@ -107,7 +105,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // // Obtener opciones
+
   getShipmentOptions: function (con, trackingId) {
     return con
       .query(
@@ -120,7 +118,7 @@ module.exports = {
         return new Error(error);
       });
   },
-  // // Obtener descuentos
+
   getShipmentDiscounts: function (con, trackingId) {
     return con
       .query(
