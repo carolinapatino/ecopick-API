@@ -3,10 +3,7 @@ const router = express.Router();
 const shipmentController = require("./shipment.controller");
 const auth = require("../../middleware/auth");
 
-router.get(
-  "/:trackingId",
-  /*auth.validateToken,*/ shipmentController.getShipment
-);
+router.get("/:trackingId", shipmentController.getShipment);
 router.post("/", auth.validateToken, shipmentController.createOrder);
 
 router.get("/:trackingId/route", shipmentController.getShipmentRoute);
