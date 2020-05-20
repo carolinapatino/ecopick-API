@@ -111,4 +111,5 @@ module.exports = {
     let route = await transformRoutes(routeLatLon);
     return route;
   },
+  transformDirectionToLatLon,
 };
