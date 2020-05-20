@@ -11,4 +11,17 @@ module.exports = {
         return new Error(error);
       });
   },
+  getAllOffices: function (con) {
+    return con
+      .query(
+        `select o.of_id, o.of_name, CONCAT(d.di_primary_line, CONCAT(', ', CONCAT (d.di_secondary_line, CONCAT ( ', ', CONCAT (d.di_city, 
+          CONCAT (', ', CONCAT (d.di_state,CONCAT (', ', CONCAT (d.di_country,  CONCAT(', ',d.di_zip_code)))))))))) AS Direction
+          from mp_office o, mp_direction d
+          where o.of_fk_status = 4 and o.of_fk_direction = d.di_id
+          `
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };

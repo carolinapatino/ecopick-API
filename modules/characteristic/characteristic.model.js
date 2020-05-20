@@ -11,4 +11,9 @@ module.exports = {
         return new Error(error);
       });
   },
+  getAllCharacteristic: function (con) {
+    return con.query(`Select * from mp_characteristic`).catch((error) => {
+      return new Error(error);
+    });
+  },
 };
