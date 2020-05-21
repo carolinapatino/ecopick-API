@@ -60,7 +60,7 @@ insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state,
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('125 W Dyna Dr,', '#555','Houston','Texas','United States', 77060);
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('1755 Wyndale St', '#802','Houston','Texas','United States', 77030);
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('9911 Whitehurst Dr', '2958','Dallas','Texas','United States', 75243);
-insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('2024 Quail Creek Rd #117', 'Apartment 159','Laredo','Texas','United States', 78045);
+insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('303 Memorial City Way, Houston, TX 77024', 'Apartment 159','Laredo','Texas','United States', 77024);
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('101 N Brookside Dr', 'Apartment 98','Dallas','Texas','United States', 75214);
 
 /* MP_RECEIVER */ 
