@@ -15,6 +15,29 @@ module.exports = {
         return new Error(error);
       });
   },
+  //Obtener envios dado un usuario
+  getShipmentbyUser: function (con, userId) {
+    return con
+      .query(
+        `WITH LAST_STOP AS
+        (SELECT ST_FK_SHIPMENT AS SHIPMENT, MAX(ST_DATE) AS STOP_DATE
+        FROM MP_STOP
+        GROUP BY SHIPMENT)
+        SELECT SH.SH_TRACKING_ID AS trackingID, SH.SH_SHIPMENT_DATE AS shipmentDate,
+        SH.SH_PURPOSE AS purpose, SH.SH_TOTAL AS total, LS.STOP_DATE AS stopDate, ST.ST_NAME AS status
+        FROM MP_SHIPMENT SH LEFT OUTER JOIN LAST_STOP AS LS ON SH.SH_ID = LS.SHIPMENT
+        LEFT OUTER JOIN MP_STOP AS SP ON LS.STOP_DATE = SP.ST_DATE AND LS.SHIPMENT = SP.ST_FK_SHIPMENT
+        LEFT OUTER JOIN MP_STATUS AS ST ON SP.ST_FK_STATUS = ST.ST_ID
+        WHERE SH.SH_FK_USER =$1
+        ORDER BY stopDate DESC;`,
+        [userId]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+
+  // Insertar envio
 
   createShipment: function (con, body, receiver) {
     return con
