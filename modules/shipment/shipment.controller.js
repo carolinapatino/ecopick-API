@@ -184,16 +184,10 @@ module.exports = {
         packages[p].characteristic = package_characteristic;
       }
     }
-    if (shipment_options.length == 0) {
-      logger.info({
-        message: `STATUS 204 | NO CONTENT | Shippment #${req.params.trackingId} doesn't exist`,
-      });
-      res.status(204);
-    } else {
-      logger.info({
-        message: `STATUS 200 | OK | Invoice details for shipment #${req.params.trackingId} were found successfully`,
-      });
-    }
+    logger.info({
+      message: `STATUS 200 | OK | Invoice details for shipment #${req.params.trackingId} were found successfully`,
+    });
+
     res.json({
       options: shipment_options,
       route: { origin: origin, destination: destination },
