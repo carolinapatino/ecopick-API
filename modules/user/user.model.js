@@ -60,8 +60,7 @@ module.exports = {
   getUsers: function (con, body) {
     return con
       .query(
-        `SELECT U.US_ID, U.US_FIRST_NAME, U.US_SECOND_NAME, U.US_LAST_NAME,
-          U.US_SECOND_LAST_NAME, U.US_EMAIL, U.US_PHONE_NUMBER,
+        `SELECT U.*,
           S.ST_ID AS STATUS_ID, S.ST_NAME AS STATUS_NAME
         FROM MP_USER U, MP_STATUS S
         WHERE U.US_FK_STATUS = S.ST_ID AND US_CHARGE = $1;`,
