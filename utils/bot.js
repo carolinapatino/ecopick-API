@@ -42,12 +42,11 @@ bot.onText(/^\/start/, function (msg) {
 bot.onText(/\/track (.+)/, function (msg, match) {
   let chatId = msg.chat.id;
   let order = match[1];
-  request(`${process.env.API_URL}/shipment/${order}/route`, function (
+  request(`${process.env.API_URL}/shipment/${order}/route`, async function (
     error,
     response,
     body
   ) {
-    // if (body == 0) {
     if (response.statusCode == 204 && body == 0) {
       bot.sendMessage(
         chatId,
@@ -57,19 +56,19 @@ bot.onText(/\/track (.+)/, function (msg, match) {
     } else if (!error && response.statusCode == 200) {
       let route = JSON.parse(body);
       for (var i = 0; i < route.length; i++) {
-        bot.sendMessage(
+        await bot.sendMessage(
           chatId,
           "Tracking ID: " +
             order +
             "\n" +
             "Date: " +
-            moment(route[i].st_date).format("MM/DD/YYYY") +
+            moment(route[i].date).format("MM/DD/YYYY HH:mm:ss") +
             "\n" +
             "Status: " +
             route[i].status +
             "\n" +
             "Description: " +
-            route[i].status_description
+            route[i].statusdescription
         );
       }
       logger.info({ message: `BOT | /TRACK ORDER ${order} SUCCESSFUL` });
@@ -102,10 +101,10 @@ bot.onText(/\/detail (.+)/, function (msg, match) {
           detail[0].trackingid +
           "\n" +
           "Delivered date: " +
-          moment(detail[0].delivered).format("MM/DD/YYYY") +
+          moment(detail[0].delivered).format("MM/DD/YYYY HH:mm:ss") +
           "\n" +
           "Arrival date: " +
-          moment(detail[0].arrival).format("MM/DD/YYYY") +
+          moment(detail[0].arrival).format("MM/DD/YYYY HH:mm:ss") +
           "\n" +
           "Amount: " +
           detail[0].amount +

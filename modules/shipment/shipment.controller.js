@@ -9,7 +9,6 @@ const discountModel = require("../discount/discount.model");
 const logger = require("../../config/logger");
 
 module.exports = {
-  //CONSULTAR ENVIO
   getShipment: async function (req, res, next) {
     let results = await shipmentModel.getShipment(
       req.con,
@@ -57,8 +56,8 @@ module.exports = {
   },
 
   //REGISTRAR ENVIO
+
   createOrder: async function (req, res, next) {
-    // Se inserta un receptor, y retorna su ID
     let receiver = await receiverModel.createReceiver(
       req.con,
       req.body.receiver
@@ -70,7 +69,6 @@ module.exports = {
       next(createError(500, `${receiver.message}`));
     }
 
-    //Se inserta un envío, con la FK del receptor
     let shipment = await shipmentModel.createShipment(
       req.con,
       req.body.shipment,
@@ -83,7 +81,6 @@ module.exports = {
       next(createError(500, `${shipment.message}`));
     }
 
-    // Se inicia un ciclo para insertar todos los paquetes de este envío
     var i;
     let package;
     for (i = 0; i < req.body.packages.length; i++) {
@@ -100,7 +97,7 @@ module.exports = {
         next(createError(500, `${package.message}`));
       }
     }
-    // Se inicia un ciclo para insertar todas las opciones de envío
+
     let option;
     for (i = 0; i < req.body.options.length; i++) {
       option = await optionModel.JoinOptionShipment(
@@ -117,7 +114,6 @@ module.exports = {
       }
     }
 
-    // Se actualiza la validez de un descuento y se le agrega la FK del envio
     let discount = await discountModel.useDiscount(
       req.con,
       req.body,
@@ -145,7 +141,7 @@ module.exports = {
     res.status(201);
     res.json({});
   },
-  //CONSULTAR RUTA DE ENVIO
+
   getShipmentRoute: async function (req, res, next) {
     let route = await shipmentModel.getShipmentRoute(
       req.con,
@@ -168,6 +164,7 @@ module.exports = {
     }
     res.json(route);
   },
+
   getInvoice: async function (req, res, next) {
     let promises = ([
       shipment_options,

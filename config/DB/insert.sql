@@ -144,9 +144,9 @@ insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('', ) */
 
 --------------------- USER -------------------------------
-INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('E0434129394','Elliott','Pennington','Moran','03/08/03','habitant@rutrumnon.ca','OHH89ZQX0RP','1-854-854-3666','Client',1,4);
-INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('M1675380957','Clark','Le','Madden','12/01/46','a@posuereenimnisl.co.uk','SIJ75HWQ9QZ','1-824-942-7188','Client',2,5);
-INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('T1696884047','Suki','Berry','House','02/06/98','magna@metus.com','FGS89VFN5FH','1-535-356-8713','Client',1,4);
+INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('E0434129394','Elliott','Pennington','Moran','03/08/03','test@gmail.com','test','1-854-854-3666','Client',1,4);
+INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('M1675380957','Clark','Le','Madden','12/01/46','a@gmail.com','test','1-824-942-7188','Client',2,5);
+INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('T1696884047','Suki','Berry','House','02/06/98','magna@metus.com','test','1-535-356-8713','Client',1,4);
 INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('C5438881928','Ferdinand','Villarreal','Cooke','05/06/61','iaculis@risusInmi.net','IRU34XTC2RS','1-536-668-3535','Client',2,5);
 INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('T7384269256','Gannon','Mays','Forbes','01/10/46','nunc.est@ligulaeu.com','YBO31ZLW2YS','1-482-842-5599','Client',2,4);
 INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('M5733354249','Joshua','Mccarthy','Graham','06/03/99','sit.amet.risus@felis.ca','QXS77VNL2JG','1-985-395-6062','Client',2,4);
@@ -213,11 +213,11 @@ insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) val
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 9:00:00', 8, 2, 14);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 10:50:00', 8, 2, 15);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 1, 24);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 25);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 26);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 27);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 28);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 3, 29);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-28 12:00:00', 9, 2, 25);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-29 12:00:00', 9, 2, 26);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-30 12:00:00', 9, 2, 27);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-05-01 12:00:00', 9, 2, 28);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-02 12:00:00', 9, 3, 29);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-20 11:00:00', 10, 1, 10);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-21 12:00:00', 10, 2, 8);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-23 07:00:00', 10, 2, 7);
