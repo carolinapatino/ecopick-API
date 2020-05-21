@@ -131,4 +131,30 @@ module.exports = {
         return new Error(error);
       });
   },
+  getAllShipments: function (con, trackingId) {
+    return con
+      .query(
+        `WITH LAST_STOP AS
+          (SELECT ST_FK_SHIPMENT AS SHIPMENT, MAX(ST_DATE) AS STOP_DATE
+          FROM MP_STOP
+          GROUP BY SHIPMENT),
+        PACKAGES AS
+          (SELECT PA_FK_SHIPMENT AS SHIPMENT, COUNT(*) AS TOTAL
+          FROM MP_PACKAGE
+          GROUP BY PA_FK_SHIPMENT)
+        SELECT SH.SH_ID AS ID, SH.SH_TRACKING_ID AS trackingID, SH.SH_SHIPMENT_DATE AS date,
+          SH.SH_PURPOSE AS purpose, SH.SH_TOTAL AS total, LS.STOP_DATE AS stop, ST.ST_NAME AS status,
+          O.OF_NAME as Office, CONCAT (u.us_first_name, CONCAT (' ' , u.us_last_name)) AS User,
+          P.TOTAL AS PACKAGES
+        FROM MP_OFFICE AS O, MP_USER AS U, PACKAGES AS P RIGHT OUTER JOIN MP_SHIPMENT SH ON SH.SH_ID = P.SHIPMENT
+          LEFT OUTER JOIN LAST_STOP AS LS ON SH.SH_ID = LS.SHIPMENT
+          LEFT OUTER JOIN MP_STOP AS SP ON LS.STOP_DATE = SP.ST_DATE AND LS.SHIPMENT = SP.ST_FK_SHIPMENT
+          LEFT OUTER JOIN MP_STATUS AS ST ON SP.ST_FK_STATUS = ST.ST_ID
+          WHERE O.OF_ID = SH.SH_FK_OFFICE_ORIGIN AND U.US_ID = SH.SH_FK_USER
+        ORDER BY stop DESC;`
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
