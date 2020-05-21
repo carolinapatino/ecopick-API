@@ -130,7 +130,7 @@ module.exports = class Email {
           content: file.buffer.toString("base64"),
         },
       ],
-      template_id: "d-1570c8919ebf4f0ea524efd529008026",
+      template_id: `${process.env.SENDGRID_TEMPLATE}`,
     };
 
     this.send(msg);

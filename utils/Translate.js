@@ -8,7 +8,7 @@ module.exports = {
     form.append("id", process.env.POEDITOR_PROJECT_ID);
     form.append("language", language);
     return axios
-      .post("https://api.poeditor.com/v2/terms/list", form, {
+      .post(`${process.env.POEDITOR_URL}`, form, {
         headers: form.getHeaders(),
       })
       .catch((error) => {

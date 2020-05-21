@@ -60,7 +60,7 @@ insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state,
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('125 W Dyna Dr,', '#555','Houston','Texas','United States', 77060);
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('1755 Wyndale St', '#802','Houston','Texas','United States', 77030);
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('9911 Whitehurst Dr', '2958','Dallas','Texas','United States', 75243);
-insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('2024 Quail Creek Rd #117', 'Apartment 159','Laredo','Texas','United States', 78045);
+insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('303 Memorial City Way, Houston, TX 77024', 'Apartment 159','Laredo','Texas','United States', 77024);
 insert into MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code) values ('101 N Brookside Dr', 'Apartment 98','Dallas','Texas','United States', 75214);
 
 /* MP_RECEIVER */ 
@@ -89,10 +89,10 @@ insert into MP_RECEIVER (RE_identification, RE_first_name, RE_second_name, RE_la
 
 /* MP_CHARACTERISTIC */ 
 
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Fragile',20.00,'$');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Flammable',40.00,'$');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Living animal',0.40,'%');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Food',0.10,'%');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Fragile',10.00,'$');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Flammable',15.00,'$');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Living animal',20.00,'S');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Food',5.00,'S');
 /* insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
@@ -102,10 +102,10 @@ insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values (
 
 ------------------------ OPTION ----------------------------------------------
 
-INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('No Saturday delivery', 0.27, '%');
+INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('No Saturday delivery', 0.27, '$');
 INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('Delivery Express', 5.22, '$');
-INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('Sunday-Holiday', 0.35, '%');
-INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('10:30 AM Delivery Requiered',0.12, '%');
+INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('Sunday-Holiday', 2.50, '$');
+INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('10:30 AM Delivery Requiered',1.45, 'S');
 
 /* MP_OFFICE */ 
 
@@ -144,9 +144,9 @@ insert into MP_CONFIGURATION (CO_name, CO_value) values ('', )
 insert into MP_CONFIGURATION (CO_name, CO_value) values ('', ) */
 
 --------------------- USER -------------------------------
-INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('E0434129394','Elliott','Pennington','Moran','03/08/03','habitant@rutrumnon.ca','OHH89ZQX0RP','1-854-854-3666','Client',1,4);
-INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('M1675380957','Clark','Le','Madden','12/01/46','a@posuereenimnisl.co.uk','SIJ75HWQ9QZ','1-824-942-7188','Client',2,5);
-INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('T1696884047','Suki','Berry','House','02/06/98','magna@metus.com','FGS89VFN5FH','1-535-356-8713','Client',1,4);
+INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('E0434129394','Elliott','Pennington','Moran','03/08/03','test@gmail.com','test','1-854-854-3666','Client',1,4);
+INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('M1675380957','Clark','Le','Madden','12/01/46','a@gmail.com','test','1-824-942-7188','Client',2,5);
+INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('T1696884047','Suki','Berry','House','02/06/98','magna@metus.com','test','1-535-356-8713','Client',1,4);
 INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('C5438881928','Ferdinand','Villarreal','Cooke','05/06/61','iaculis@risusInmi.net','IRU34XTC2RS','1-536-668-3535','Client',2,5);
 INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('T7384269256','Gannon','Mays','Forbes','01/10/46','nunc.est@ligulaeu.com','YBO31ZLW2YS','1-482-842-5599','Client',2,4);
 INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ('M5733354249','Joshua','Mccarthy','Graham','06/03/99','sit.amet.risus@felis.ca','QXS77VNL2JG','1-985-395-6062','Client',2,4);
@@ -192,6 +192,11 @@ INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRI
 INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (0.54,0.51,14.16,10.89,47,'Kitchen',1);
 INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (1.85,0.43,1.95,1.42,63,'Clothes',6);
 INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (15.44,4.25,11.12,8.89,62,'Pet/Cat',6);
+INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (4.76,9.89,6.72,1.06,67,null,4);
+INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (10.71,16.48,6.08,0.58,50,'Leather jacket',2);
+INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (0.54,0.51,14.16,10.89,47,'Kitchen',1);
+INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (1.85,0.43,1.95,1.42,63,'Clothes',8);
+INSERT INTO MP_PACKAGE (PA_WIDTH,PA_HEIGHT,PA_LENGTH,PA_WEIGHT,PA_COST,PA_DESCRIPTION,PA_FK_SHIPMENT) VALUES (15.44,4.25,11.12,8.89,62,'Pet/Cat',7);
 
 /* MP_STOP */
 
@@ -213,11 +218,11 @@ insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) val
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 9:00:00', 8, 2, 14);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-26 10:50:00', 8, 2, 15);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 1, 24);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 25);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 26);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 27);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 2, 28);
-insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-27 12:00:00', 9, 3, 29);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-28 12:00:00', 9, 2, 25);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-29 12:00:00', 9, 2, 26);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-30 12:00:00', 9, 2, 27);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-05-01 12:00:00', 9, 2, 28);
+insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-02 12:00:00', 9, 3, 29);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-20 11:00:00', 10, 1, 10);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-21 12:00:00', 10, 2, 8);
 insert into MP_STOP (ST_date, ST_FK_shipment, ST_FK_status, ST_FK_direction) values ('2020-04-23 07:00:00', 10, 2, 7);

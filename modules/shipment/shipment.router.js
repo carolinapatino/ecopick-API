@@ -3,9 +3,11 @@ const router = express.Router();
 const shipmentController = require("./shipment.controller");
 const auth = require("../../middleware/auth");
 
+router.get("/:trackingId", auth.validateToken, shipmentController.getShipment);
 router.get(
-  "/:trackingId",
-  /*auth.validateToken,*/ shipmentController.getShipment
+  "/byUser/:userId",
+  /*auth.validateToken,*/
+  shipmentController.getShipmentbyUser
 );
 router.post("/", auth.validateToken, shipmentController.createOrder);
 
@@ -15,5 +17,7 @@ router.get(
   auth.validateToken,
   shipmentController.getInvoice
 );
+
+router.get("/", auth.validateToken, shipmentController.getAllShipments);
 
 module.exports = router;

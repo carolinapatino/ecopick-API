@@ -9,4 +9,9 @@ module.exports = {
         return new Error(error);
       });
   },
+  getAllOptions: function (con) {
+    return con.query(`Select * from mp_option`).catch((error) => {
+      return new Error(error);
+    });
+  },
 };

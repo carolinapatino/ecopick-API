@@ -1,52 +1,80 @@
-# mrPostel-API
+# MrPostel API 📦
 
-> README EN ELABORACIÓN
-> Si existe un error en el editor de código: verificar que el End Of Line sea LF
+> Verificar que en el editor de código End Of Line sea LF
 
-### Preparación
+Repositorio para el desarrollo de una API REST a ser consumida por la aplicación web y la herramienta de back-office Mr.Postel.
+
+## Pre-Requisitos ✔️
+
+- Entorno de ejecución: [Node.js](https://nodejs.org/es/) >= v11.14.0
+- Manejador de BD relacional: [PostgreSQL](https://www.postgresql.org/) > v11
+- Administrador de paquetes: [NPM](https://www.npmjs.com/) >= 6.7.0
+- Sistema de control de versiones: [GIT](https://git-scm.com/) >= 2.20
+
+## Preparación ✔️
 
 1. Crear una base de datos en postgresql
 2. Correr los scripts que se encuentran en config/DB/ en el siguiente orden: create, alter, insert
-3. Crear un archivo .env en el root del proyecto
+3. Agregar un archivo .env en el root del proyecto
 
-### Correr el proyecto
+> Deberá contactar a los desarrolladores para obtener las llaves necesarias para tener acceso completo a todas las funcionalidades.
 
-- npm install
-- npm run dev
+## Ejecutar el proyecto 💻
 
-### Dependencias del proyecto
+### Primeros pasos
 
-- Express
-- Axios
-- Lob
-- dotenv
-- pg-promise
-- http-errors
-- moment
-- jwt-simple
-- multer
-- @sendgrid/mail
-- body-parser
-- compression
-- cors
-- winston
-- humps
-- node-telegram-bot-api
+Para poder obtener localmente el proyecto y así dar inicio al desarrollo y/o poder realizar pruebas, deberá abrir la consola de comandos y ejecutar lo siguiente:
+
+```bash
+git clone https://github.com/albasanchez/mrPostel-API.git
+cd mrPostel-API
+npm install
+```
+
+### Iniciar el servidor
+
+```bash
+npm run dev
+```
+
+## Dependencias del proyecto 📜
+
+### Dependencias
+
+- axios: ^0.19.2
+- @sendgrid/mail: ^7.1.0
+- body-parser: ^1.19.0
+- compression: ^1.7.4
+- cors: ^2.8.5
+- dotenv: ^8.2.0
+- express: ^4.17.1
+- helmet: ^3.22.0
+- http-errors: ^1.7.3
+- humps: ^2.0.1
+- jwt-simple: ^0.5.6
+- lob: ^6.1.0
+- moment: ^2.24.0
+- multer: ^1.4.2
+- node-telegram-bot-api: ^0.40.0
+- pg-promise: ^10.5.2
+- winston: ^3.2.1
 
 ### Dependencias de desarrollo
 
-- nodemon
-- babel-preset-env
-- @babel/cli
-- jest
-- supertest
-- superagent
-- eslint
-- prettier
-- eslint-config-prettier
-- eslint-plugin-import
-- eslint-plugin-prettier
+- @babel/cli: ^7.8.4
+- babel-preset-env: ^1.7.0
+- eslint: ^6.8.0
+- eslint-config-prettier: ^6.11.0
+- eslint-plugin-import: ^2.20.2
+- eslint-plugin-prettier: ^3.1.3
+- jest: ^25.4.0
+- nodemon: ^2.0.3
+- prettier: ^2.0.5
+- superagent: ^5.2.2
+- supertest: ^4.0.2
 
-### Dependencias en consideración
+## Developers 👩👩👩
 
-- node-cron
+- [Nadal, Vanessa](https://github.com/vanessanadal)
+- [Patiño, Carolina](https://github.com/carolinapatino)
+- [Sánchez, Alba](https://github.com/albasanchez)

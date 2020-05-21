@@ -10,7 +10,6 @@ const directionModel = require ("../direction/direction.model");
 const logger = require("../../config/logger");
 
 module.exports = {
-  //CONSULTAR ENVIO
   getShipment: async function (req, res, next) {
     let results = await shipmentModel.getShipment(
       req.con,
@@ -33,9 +32,33 @@ module.exports = {
     }
     res.json(results);
   },
+  //CONSULTAR ENVIO POR USUARIO
+  getShipmentbyUser: async function (req, res, next) {
+    let results = await shipmentModel.getShipmentbyUser(
+      req.con,
+      req.params.userId
+    );
+    if (results instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+      });
+      next(createError(500, `${results.message}`));
+    } else if (results.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | There are not shipments by user ${req.params.userId}`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | The shipments by user #${req.params.userId} was found successfully`,
+      });
+    }
+    res.json(results);
+  },
+
   //REGISTRAR ENVIO
+
   createOrder: async function (req, res, next) {
-    // Se inserta un receptor, y retorna su ID
     let receiver = await receiverModel.createReceiver(
       req.con,
       req.body.receiver
@@ -58,7 +81,6 @@ module.exports = {
       next(createError(500, `${direction.message}`));
     }
 
-    //Se inserta un envío, con la FK del receptor
     let shipment = await shipmentModel.createShipment(
       req.con,
       req.body.shipment,
@@ -72,7 +94,6 @@ module.exports = {
       next(createError(500, `${shipment.message}`));
     }
 
-    // Se inicia un ciclo para insertar todos los paquetes de este envío
     var i;
     let package;
     for (i = 0; i < req.body.packages.length; i++) {
@@ -89,7 +110,7 @@ module.exports = {
         next(createError(500, `${package.message}`));
       }
     }
-    // Se inicia un ciclo para insertar todas las opciones de envío
+
     let option;
     for (i = 0; i < req.body.options.length; i++) {
       option = await optionModel.JoinOptionShipment(
@@ -106,7 +127,6 @@ module.exports = {
       }
     }
 
-    // Se actualiza la validez de un descuento y se le agrega la FK del envio
     let discount = await discountModel.useDiscount(
       req.con,
       req.body,
@@ -134,7 +154,7 @@ module.exports = {
     res.status(201);
     res.json({});
   },
-  //CONSULTAR RUTA DE ENVIO
+
   getShipmentRoute: async function (req, res, next) {
     let route = await shipmentModel.getShipmentRoute(
       req.con,
@@ -157,6 +177,7 @@ module.exports = {
     }
     res.json(route);
   },
+
   getInvoice: async function (req, res, next) {
     let promises = ([
       shipment_options,
@@ -197,16 +218,10 @@ module.exports = {
         packages[p].characteristic = package_characteristic;
       }
     }
-    if (shipment_options.length == 0) {
-      logger.info({
-        message: `STATUS 204 | NO CONTENT | Shippment #${req.params.trackingId} doesn't exist`,
-      });
-      res.status(204);
-    } else {
-      logger.info({
-        message: `STATUS 200 | OK | Invoice details for shipment #${req.params.trackingId} were found successfully`,
-      });
-    }
+    logger.info({
+      message: `STATUS 200 | OK | Invoice details for shipment #${req.params.trackingId} were found successfully`,
+    });
+
     res.json({
       options: shipment_options,
       route: { origin: origin, destination: destination },
@@ -214,5 +229,24 @@ module.exports = {
       packages: packages,
       discounts: discounts,
     });
+  },
+  getAllShipments: async function (req, res, next) {
+    let results = await shipmentModel.getAllShipments(req.con);
+    if (results instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
+      });
+      next(createError(500, `${results.message}`));
+    } else if (results.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | The database doesn't have shipments registered`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | Shipments were found successfully`,
+      });
+    }
+    res.json(results);
   },
 };
