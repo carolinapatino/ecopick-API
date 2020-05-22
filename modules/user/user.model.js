@@ -46,7 +46,7 @@ module.exports = {
   updatePassword: function (con, email, password) {
     return con
       .query(
-        "UPDATE MP_USER SET US_password = $1 WHERE US_email=$2 RETURNING US_first_name",
+        "UPDATE MP_USER SET US_password = $1 WHERE US_email=$2 RETURNING US_first_name, US_fk_language",
         [password, email]
       )
       .catch((error) => {
