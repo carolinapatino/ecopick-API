@@ -70,8 +70,7 @@ module.exports = {
   getUser: function (con, id) {
     return con
       .query(
-        `SELECT US_FIRST_NAME, US_SECOND_NAME, US_LAST_NAME,
-          US_SECOND_LAST_NAME, US_IDENTIFICATION, US_EMAIL, US_PHONE_NUMBER
+        `SELECT *
         FROM MP_USER
         WHERE US_ID = $1;`,
         [id]
