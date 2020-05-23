@@ -14,6 +14,7 @@ router.put("/newPassword", userController.forgotPassword);
 // Manipulación de datos del usuario
 router.get("/", auth.validateToken, userController.getUsers);
 router.get("/:id", auth.validateToken, userController.getUser);
+router.put("/", auth.validateToken, userController.updateUser);
 router.post(
   "/:userId/assignDiscount",
   auth.validateToken,

@@ -79,4 +79,26 @@ module.exports = {
         return new Error(error);
       });
   },
+  updateUser: function (con, user) {
+    return con
+      .query(
+        `UPDATE MP_USER
+          SET US_PHOTO = $2, US_EMAIL = $3, US_PASSWORD = $4, US_PHONE_NUMBER = $5,
+            US_FK_LANGUAGE = (SELECT LA_ID FROM MP_LANGUAGE WHERE LA_ISO_CODE = $6),
+            US_FK_STATUS = (SELECT ST_ID FROM MP_STATUS WHERE ST_NAME = $7)
+          WHERE US_ID = $1;`,
+        [
+          user.id,
+          user.photo,
+          user.email,
+          user.password,
+          user.phone,
+          user.language,
+          user.status,
+        ]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
