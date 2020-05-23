@@ -91,8 +91,8 @@ insert into MP_RECEIVER (RE_identification, RE_first_name, RE_second_name, RE_la
 
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Fragile',10.00,'$');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Flammable',15.00,'$');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Living animal',20.00,'S');
-insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Food',5.00,'S');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Living animal',20.00,'$');
+insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('Food',5.00,'$');
 /* insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
 insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values ('', ,'');
@@ -105,7 +105,7 @@ insert into MP_CHARACTERISTIC (CH_name, CH_charge, CH_charge_parameter) values (
 INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('No Saturday delivery', 0.27, '$');
 INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('Delivery Express', 5.22, '$');
 INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('Sunday-Holiday', 2.50, '$');
-INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('10:30 AM Delivery Requiered',1.45, 'S');
+INSERT INTO MP_OPTION (OP_NAME,OP_CHARGE,OP_CHARGE_PARAMETER) VALUES ('10:30 AM Delivery Requiered',1.45, '$');
 
 /* MP_OFFICE */ 
 

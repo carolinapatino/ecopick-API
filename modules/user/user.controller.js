@@ -39,7 +39,8 @@ module.exports = {
           new Email(
             req.body.email,
             req.body.first_name,
-            "Welcome"
+            "Welcome",
+            req.body.id_language
           ).discountAnnouncement("-" + discount[0].di_percentage * 100);
         }
         res.status(201);
@@ -147,7 +148,8 @@ module.exports = {
         new Email(
           req.body.email,
           result[0].us_first_name,
-          "Password"
+          "Password",
+          result[0].us_fk_language
         ).passwordChange(password);
         logger.info({
           message: `STATUS 200 | OK | The password for user ${req.body.email} was changed successfully`,
@@ -209,8 +211,9 @@ module.exports = {
     } else {
       new Email(
         req.body.user.email,
-        req.body.user.firstName,
-        "Discount"
+        req.body.user.first_name,
+        "Discount",
+        req.body.user.language
       ).discountAnnouncement("-" + req.body.discount.percentage * 100);
       logger.info({
         message: `STATUS 201 | CREATED | Discount ${req.body.discount.id} assigned successfully to user ${req.body.user.email}`,
@@ -221,8 +224,11 @@ module.exports = {
   },
   // Envio de correos
   sendAttachment: async function (req, res, next) {
-    new Email(req.body.userEmail, req.body.userName, "Attachment").invoice(
-      req.file
-    );
+    new Email(
+      req.body.email,
+      req.body.name,
+      "Attachment",
+      req.body.language
+    ).invoice(req.file);
   },
 };
