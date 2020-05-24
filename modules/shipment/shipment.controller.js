@@ -6,7 +6,7 @@ const packageModel = require("../package/package.model");
 const characteristicModel = require("../characteristic/characteristic.model");
 const optionModel = require("../option/option.model");
 const discountModel = require("../discount/discount.model");
-const directionModel = require ("../direction/direction.model");
+const directionModel = require("../direction/direction.model");
 const logger = require("../../config/logger");
 
 module.exports = {
@@ -152,7 +152,7 @@ module.exports = {
     );
 
     res.status(201);
-    res.json({});
+    res.json({ trackingid: shipment[0].sh_tracking_id });
   },
 
   getShipmentRoute: async function (req, res, next) {

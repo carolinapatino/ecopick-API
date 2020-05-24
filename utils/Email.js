@@ -1,128 +1,102 @@
 const logger = require("../config/logger");
+const Translate = require("./Translate");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+function translate(lan) {
+  let language;
+  if (lan == 1) {
+    language = "en-us";
+  } else if (lan == 2) {
+    language = "es-ve";
+  }
+  return Translate.translateTexts(language);
+}
+
 module.exports = class Email {
-  constructor(userEmail, userName, purpose) {
+  constructor(userEmail, userName, purpose, language) {
     this.userEmail = userEmail;
     this.userName = userName;
     this.from = process.env.EMAIL;
     this.purpose = purpose;
+    this.language = language;
+    this.data = {
+      sender_name: "Mr. Postel",
+      announcement: {},
+      column1: {},
+      column2: {},
+      column3: {},
+    };
   }
 
-  discountAnnouncement(discount) {
-    if (this.purpose == "Welcome") {
-      var data = {
-        subject: "Welcome to Mr. Postel!",
-        sender_name: "Mr. Postel",
-        title: "Welcome to Mr. Postel",
-        email_body: `Thank you for signing up, ${this.userName}. <br> With <strong>MrPostel</strong> you can send your packages all over the US. <br> To celebrate that you chose us, we will give you a discount to start your experience with us!`,
-        thanks: "Thank you for choosing us!",
-        announcement: {
-          resume: `${discount} OFF`,
-          description: "Welcome discount",
-        },
-      };
-    } else if (this.purpose == "Discount") {
-      var data = {
-        subject: "Special discount",
-        sender_name: "Mr. Postel",
-        title: "Mr. Postel special discount!",
-        email_body: `Hey ${this.userName}. <br> <strong>MrPostel</strong> loves to celebrate everyday with you. <br> So we are happy to give you a discount gift!`,
-        thanks: "Thank you for choosing us!",
-        announcement: {
-          resume: `${discount} OFF`,
-          description: "Special discount",
-        },
-      };
-    }
+  async translateEmail(lan, purpose, password) {
+    let translator = await translate(lan);
+    let translatedText = translator.data.result.terms.filter((term) => {
+      return term.context == "email" + purpose || term.context == "email";
+    });
+    translatedText.forEach((term) => {
+      if (term.term == "emailTitle") {
+        this.data.subject = term.translation.content;
+        this.data.title = term.translation.content;
+      } else if (term.term == "emailBody" && this.purpose !== "Password") {
+        this.data.email_body = this.userName + ", " + term.translation.content;
+      } else if (term.term == "emailBody" && this.purpose == "Password") {
+        this.data.email_body =
+          this.userName +
+          ", " +
+          term.translation.content +
+          " <strong>" +
+          password +
+          "</strong>";
+      } else if (term.term == "emailDescription") {
+        this.data.announcement.description = term.translation.content;
+      } else if (term.term == "emailThanks") {
+        this.data.thanks = term.translation.content;
+      } else if (term.term == "emailC1Keyword") {
+        this.data.column1.keyword = term.translation.content;
+      } else if (term.term == "emailC2Keyword") {
+        this.data.column2.keyword = term.translation.content;
+      } else if (term.term == "emailC3Keyword") {
+        this.data.column3.keyword = term.translation.content;
+      } else if (term.term == "emailC1Description") {
+        this.data.column1.description = term.translation.content;
+      } else if (term.term == "emailC2Description") {
+        this.data.column2.description = term.translation.content;
+      } else if (term.term == "emailC3Description") {
+        this.data.column3.description = term.translation.content;
+      }
+    });
+  }
 
-    data.column1 = {
-      keyword: "Ship",
-      description: "Anywhere in the US! It's quick and simple",
-    };
-    data.column2 = {
-      keyword: "Track",
-      description: "Your shipment's delivery process using our Telegram bot",
-    };
-    data.column3 = {
-      keyword: "Keep connected",
-      description: "Stay safe. Leave the rest to us!",
-    };
-
+  async discountAnnouncement(discount) {
+    this.data.announcement.resume = `${discount}`;
+    await this.translateEmail(this.language, this.purpose, null);
     const msg = {
       to: this.userEmail,
       from: this.from,
-      dynamic_template_data: data,
-      template_id: "d-1570c8919ebf4f0ea524efd529008026",
+      dynamic_template_data: this.data,
+      template_id: process.env.SENDGRID_TEMPLATE,
     };
-
     this.send(msg);
   }
 
-  passwordChange(password) {
-    var data = {
-      subject: "Password change",
-      sender_name: "Mr. Postel",
-      title: "New password",
-      email_body: `Hello ${this.userName}. <br> Your new password is <strong>${password}</strong>.`,
-      thanks: "Thank you for choosing us!",
-      announcement: {
-        resume: `Password change`,
-      },
-    };
-    data.column1 = {
-      keyword: "Ship",
-      description: "Anywhere in the US! It's quick and simple",
-    };
-    data.column2 = {
-      keyword: "Track",
-      description: "Your shipment's delivery process using our Telegram bot",
-    };
-    data.column3 = {
-      keyword: "Keep connected",
-      description: "Stay safe. Leave the rest to us!",
-    };
-
+  async passwordChange(password) {
+    await this.translateEmail(this.language, this.purpose, password);
     const msg = {
       to: this.userEmail,
       from: this.from,
-      dynamic_template_data: data,
-      template_id: "d-1570c8919ebf4f0ea524efd529008026",
+      dynamic_template_data: this.data,
+      template_id: process.env.SENDGRID_TEMPLATE,
     };
-
     this.send(msg);
   }
 
-  invoice(file) {
-    var data = {
-      subject: "New shipment",
-      sender_name: "Mr. Postel",
-      title: "Shipment invoice",
-      email_body: `Hello ${this.userName}. <br> Thank you for choosing us! We attached your new shipment's invoice.`,
-      thanks: "Thank you for choosing us!",
-      announcement: {
-        resume: `New shipment!`,
-        description: "Thank you for shipping with us!",
-      },
-    };
-    data.column1 = {
-      keyword: "Ship",
-      description: "Anywhere in the US! It's quick and simple",
-    };
-    data.column2 = {
-      keyword: "Track",
-      description: "Your shipment's delivery process using our Telegram bot",
-    };
-    data.column3 = {
-      keyword: "Keep connected",
-      description: "Stay safe. Leave the rest to us!",
-    };
-
+  async invoice(file) {
+    await this.translateEmail(this.language, this.purpose);
     const msg = {
       to: this.userEmail,
       from: this.from,
-      dynamic_template_data: data,
+      dynamic_template_data: this.data,
       attachments: [
         {
           filename: file.originalname,
@@ -130,13 +104,12 @@ module.exports = class Email {
           content: file.buffer.toString("base64"),
         },
       ],
-      template_id: `${process.env.SENDGRID_TEMPLATE}`,
+      template_id: process.env.SENDGRID_TEMPLATE,
     };
-
     this.send(msg);
   }
 
-  send(msg) {
+  async send(msg) {
     sgMail
       .send(msg)
       .then(() => {

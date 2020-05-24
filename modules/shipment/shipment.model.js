@@ -41,7 +41,7 @@ module.exports = {
   createShipment: function (con, body, receiver, direction) {
     return con
       .query(
-        "INSERT INTO MP_SHIPMENT (SH_SHIPMENT_DATE,SH_TOTAL,SH_FK_OFFICE_ORIGIN,SH_FK_DIRECTION_DESTINATION,SH_FK_USER,SH_FK_RECEIVER, SH_PURPOSE) VALUES ($1,$2,$3,$4,$5,$6,$7) returning SH_ID",
+        "INSERT INTO MP_SHIPMENT (SH_SHIPMENT_DATE,SH_TOTAL,SH_FK_OFFICE_ORIGIN,SH_FK_DIRECTION_DESTINATION,SH_FK_USER,SH_FK_RECEIVER, SH_PURPOSE) VALUES ($1,$2,$3,$4,$5,$6,$7) returning SH_ID, SH_TRACKING_ID",
         [
           body.date,
           body.total,
