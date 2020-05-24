@@ -79,4 +79,39 @@ module.exports = {
         return new Error(error);
       });
   },
+  updateUser: function (con, user) {
+    return con
+      .query(
+        `UPDATE MP_USER
+          SET US_PHOTO = $2, US_IDENTIFICATION = $3, US_EMAIL = $4,
+          US_PASSWORD = $5, US_BIRTHDAY = $6, US_PHONE_NUMBER = $7,
+            US_FK_LANGUAGE = (SELECT LA_ID FROM MP_LANGUAGE WHERE LA_ISO_CODE = $8)
+          WHERE US_ID = $1;`,
+        [
+          user.id,
+          user.photo,
+          user.identification,
+          user.email,
+          user.password,
+          user.birthday,
+          user.phone,
+          user.language,
+        ]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
+  disableUser: function (con, user) {
+    return con
+      .query(
+        `UPDATE MP_USER
+          SET US_FK_STATUS = (SELECT ST_ID FROM MP_STATUS WHERE ST_NAME = $2)
+          WHERE US_ID = $1;`,
+        [user.id, user.status]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
