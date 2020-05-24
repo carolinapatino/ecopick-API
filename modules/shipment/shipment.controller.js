@@ -59,6 +59,7 @@ module.exports = {
   //REGISTRAR ENVIO
 
   createOrder: async function (req, res, next) {
+    console.log(req.body);
     let receiver = await receiverModel.createReceiver(
       req.con,
       req.body.receiver

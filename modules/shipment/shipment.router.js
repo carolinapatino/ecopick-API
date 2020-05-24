@@ -9,7 +9,7 @@ router.get(
   /*auth.validateToken,*/
   shipmentController.getShipmentbyUser
 );
-router.post("/", auth.validateToken, shipmentController.createOrder);
+router.post("/", shipmentController.createOrder);
 
 router.get("/:trackingId/route", shipmentController.getShipmentRoute);
 router.get(
