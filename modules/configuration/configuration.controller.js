@@ -30,12 +30,12 @@ module.exports = {
       next(createError(500, `${results.message}`));
     } else if (results.length == 0) {
       logger.info({
-        message: `STATUS 204 | NO CONTENT | Configuration "Shipping Price" doesn't exist`,
+        message: `STATUS 204 | NO CONTENT | Configuration "Shipping Price" or "Service Price" don't exist`,
       });
       res.status(204);
     } else {
       logger.info({
-        message: `STATUS 200 | OK | "Shipping Price" value was found successfuly`,
+        message: `STATUS 200 | OK | "Shipping Price" and "Service Price" values were found successfuly`,
       });
     }
     res.json(results);
