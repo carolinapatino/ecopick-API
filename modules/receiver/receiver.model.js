@@ -6,11 +6,11 @@ module.exports = {
             values ($1,$2,$3,$4,$5,$6,$7) returning re_id`,
         [
           body.identification,
-          body.first_name,
+          body.firstName,
           body.second_name,
-          body.last_name,
+          body.lastName,
           body.second_last_name,
-          body.phone_number,
+          body.phoneNumber,
           body.email,
         ]
       )

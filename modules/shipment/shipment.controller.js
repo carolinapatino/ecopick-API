@@ -59,7 +59,6 @@ module.exports = {
   //REGISTRAR ENVIO
 
   createOrder: async function (req, res, next) {
-    console.log(req.body);
     let receiver = await receiverModel.createReceiver(
       req.con,
       req.body.receiver
@@ -141,7 +140,7 @@ module.exports = {
     }
 
     logger.info({
-      message: `STATUS 201 | CREATED | The shipment ${req.body.shipment.trackingID} has been registered successfully`,
+      message: `STATUS 201 | CREATED | The shipment ${shipment[0].sh_tracking_id} has been registered successfully`,
     });
 
     shipmentService.generateShipmentRoute(

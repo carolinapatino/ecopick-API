@@ -97,7 +97,6 @@ CREATE TABLE MP_SHIPMENT (
   SH_estimated_date_of_arrival TIMESTAMP,
   SH_purpose VARCHAR,
   SH_total FLOAT NOT NULL,
-  SH_qr_code VARCHAR,
   SH_FK_office_origin INTEGER NOT NULL,
   SH_FK_direction_destination INTEGER NOT NULL,
   SH_FK_user INTEGER NOT NULL,
