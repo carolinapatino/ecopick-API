@@ -104,6 +104,6 @@ async function generateShipmentRoute(
     logger.info({
       message: `ROUTE GENERATION | Shipment #${trackingID} | Ended successfuly`,
     });
-  }, deliveryStart[0].co_value * 60000);
+  }, deliveryStart[0].co_value * 60);
 }
 module.exports = { generateShipmentRoute };

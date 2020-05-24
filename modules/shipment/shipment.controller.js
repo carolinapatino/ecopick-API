@@ -146,7 +146,7 @@ module.exports = {
     shipmentService.generateShipmentRoute(
       req.con,
       shipment[0].sh_id,
-      req.body.shipment.trackingID,
+      shipment[0].sh_tracking_id,
       req.body.shipment.office,
       direction[0].di_id
     );
