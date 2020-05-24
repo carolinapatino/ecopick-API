@@ -17,12 +17,12 @@ module.exports = {
         `INSERT INTO MP_DIRECTION (DI_primary_line, DI_secondary_line, DI_city, DI_state, DI_country, DI_zip_code)
           VALUES ($1, $2, $3, $4, $5, $6) RETURNING DI_ID;`,
         [
-          direction.primary_line,
-          direction.secondary_line,
+          direction.primaryLine,
+          direction.secondaryLine,
           direction.city,
           direction.state,
           direction.country,
-          direction.zip_code,
+          direction.zipCode,
         ]
       )
       .catch((error) => {
