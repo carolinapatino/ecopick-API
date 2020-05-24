@@ -237,6 +237,21 @@ module.exports = {
     }
     res.json({});
   },
+  disableUser: async function (req, res, next) {
+    let user = await userModel.disableUser(req.con, req.body);
+    if (user instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${user.message}`,
+      });
+      res.status(500);
+      next(createError(500, `${user.message}`));
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | User ${req.body.email} is now disabled`,
+      });
+    }
+    res.json({});
+  },
   // Envio de correos
   sendAttachment: async function (req, res, next) {
     new Email(

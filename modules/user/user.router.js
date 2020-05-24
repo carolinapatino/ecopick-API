@@ -15,6 +15,7 @@ router.put("/newPassword", userController.forgotPassword);
 router.get("/", auth.validateToken, userController.getUsers);
 router.get("/:id", auth.validateToken, userController.getUser);
 router.put("/", auth.validateToken, userController.updateUser);
+router.patch("/disable", auth.validateToken, userController.disableUser);
 router.post(
   "/:userId/assignDiscount",
   auth.validateToken,
