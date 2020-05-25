@@ -7,12 +7,10 @@ module.exports = {
     let texts = await Translate.translateTexts(req.params.language);
     if (texts instanceof Error || texts.data.response.code != 200) {
       logger.error({
-        message: `STATUS ${texts.data.response.code} | TRANSLATOR ERROR | ${texts.data.response.message}. Failed to translate to ${req.params.language}`,
+        message: `TRANSLATOR ERROR | Failed to translate to ${req.params.language}`,
       });
       res.json({});
-      next(
-        createError(texts.data.response.code, `${texts.data.response.message}`)
-      );
+      next(createError(500, `Translator error`));
     } else {
       let terms = [];
       texts.data.result.terms.forEach((term) => {
