@@ -25,10 +25,11 @@ module.exports = {
   },
   validateUser: function (con, body) {
     return con
-      .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
-        body.email,
-        body.password,
-      ])
+      .query(`SELECT * FROM MP_USER WHERE us_email='${body.email}' and us_password ${
+        body.password === null
+          ? `IS ${body.password}`
+          : `= '${body.password}'`
+      } `)
       .catch((error) => {
         return new Error(error);
       });
