@@ -6,7 +6,7 @@ module.exports = {
         [
           body.packages[i].width,
           body.packages[i].height,
-          body.packages[i].lenght,
+          body.packages[i].length,
           body.packages[i].weight,
           body.packages[i].cost,
           body.packages[i].description,
