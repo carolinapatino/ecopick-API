@@ -62,11 +62,11 @@ async function transformLatLonToDirection(lat, lon) {
     )
     .then((response) => {
       transformedDir = {
-        primary_line: response.data.display_name,
+        primaryLine: response.data.display_name,
         city: response.data.address.city,
         state: response.data.address.state,
         country: response.data.address.country,
-        zip_code: response.data.address.postcode,
+        zipCode: response.data.address.postcode,
       };
     })
     .catch((error) => {

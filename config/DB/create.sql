@@ -68,12 +68,12 @@ CREATE TABLE MP_CONFIGURATION (
 
 CREATE TABLE MP_USER (
   US_id SERIAL PRIMARY KEY,
-  US_identification VARCHAR NOT NULL,
+  US_identification VARCHAR,
   US_first_name VARCHAR NOT NULL,
   US_second_name VARCHAR,
   US_last_name VARCHAR NOT NULL,
   US_second_last_name VARCHAR,
-  US_birthday DATE NOT NULL,
+  US_birthday DATE,
   US_photo VARCHAR,
   US_email VARCHAR NOT NULL,
   US_password VARCHAR,
