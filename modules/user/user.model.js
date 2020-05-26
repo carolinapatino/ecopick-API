@@ -115,4 +115,16 @@ module.exports = {
         return new Error(error);
       });
   },
+  validateEmail: function (con, body) {
+    return con
+      .query(
+        `SELECT *
+        FROM MP_USER 
+        WHERE US_EMAIL = $1;`,
+        [body.email]
+      )
+      .catch((error) => {
+        return new Error(error);
+      });
+  },
 };
