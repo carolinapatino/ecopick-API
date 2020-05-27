@@ -261,4 +261,23 @@ module.exports = {
       req.body.language
     ).invoice(req.file);
   },
+  validateEmail: async function (req, res, next) {
+    let user= await userModel.validateEmail(req.con, req.body);
+    if (user instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${user.message}`,
+      });
+      next(createError(500, `${user.message}`));
+    } else if (user.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | User ${req.body.email} doesn't exist`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | User ${req.body.email} was sucessfully consulted`,
+      });
+    }
+    res.json(user);
+  },
 };

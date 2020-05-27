@@ -10,6 +10,7 @@ router.post("/register", userController.createUser);
 router.post("/login", userController.validateUser);
 router.post("/BO_login", userController.BO_validateUser);
 router.put("/newPassword", userController.forgotPassword);
+router.post("/validateEmail", userController.validateEmail);
 
 // Manipulación de datos del usuario
 router.get("/", auth.validateToken, userController.getUsers);
