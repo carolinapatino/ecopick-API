@@ -3,7 +3,7 @@ module.exports = {
   createUser: function (con, body) {
     return con
       .query(
-        "INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_SECOND_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING US_ID",
+        "INSERT INTO MP_USER (US_IDENTIFICATION,US_FIRST_NAME,US_SECOND_NAME,US_LAST_NAME,US_SECOND_LAST_NAME,US_BIRTHDAY,US_EMAIL,US_PASSWORD,US_PHONE_NUMBER,US_CHARGE,US_FK_LANGUAGE,US_FK_STATUS,US_PHOTO) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING US_ID",
         [
           body.identification,
           body.first_name,
@@ -17,6 +17,7 @@ module.exports = {
           body.charge,
           body.id_language,
           body.id_status,
+          body.photo
         ]
       )
       .catch((error) => {
@@ -25,14 +26,22 @@ module.exports = {
   },
   validateUser: function (con, body) {
     return con
-      .query(`SELECT * FROM MP_USER WHERE us_email='${body.email}' and us_password ${
-        body.password === null
-          ? `IS ${body.password}`
-          : `= '${body.password}'`
-      } `)
-      .catch((error) => {
-        return new Error(error);
-      });
+    .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password=$2", [
+      body.email,
+      body.password,
+    ])
+    .catch((error) => {
+      return new Error(error);
+    });
+  },
+  validateUserFederated: function (con, body) {
+    return con
+    .query("SELECT * FROM MP_USER WHERE us_email=$1 and us_password is null", [
+      body.email
+    ])
+    .catch((error) => {
+      return new Error(error);
+    });
   },
   BO_validateUser: function (con, body) {
     return con
