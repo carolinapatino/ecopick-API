@@ -5,17 +5,12 @@ const Lob = require("lob")(process.env.LOB_API_KEY);
 
 module.exports = {
   test: async function (req, res, next) {
-    let addressVerification = await Lob.usVerifications.verify(
-      {
-        primary_line: req.body.primary_line,
-        city: req.body.city,
-        state: req.body.state,
-        zip_code: req.body.zip_code,
-      },
-      (err) => {
-        logger.error(err);
-      }
-    );
+    let addressVerification = await Lob.usVerifications.verify({
+      primary_line: req.body.primary_line,
+      city: req.body.city,
+      state: req.body.state,
+      zip_code: req.body.zip_code,
+    });
     if (
       addressVerification.deliverability == "deliverable" ||
       addressVerification.deliverability == "deliverable_missing_unit"
