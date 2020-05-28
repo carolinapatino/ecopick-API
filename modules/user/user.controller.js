@@ -49,7 +49,12 @@ module.exports = {
     }
   },
   validateUser: async function (req, res, next) {
-    let results = await userModel.validateUser(req.con, req.body);
+    let results;
+    if (req.body.password === null) {
+      results = await userModel.validateUserFederated(req.con, req.body);
+    } else {
+      results = await userModel.validateUser(req.con, req.body);
+    }
     if (results instanceof Error) {
       logger.error({
         message: `STATUS 500 | DATABASE ERROR | ${results.message}`,
@@ -260,5 +265,24 @@ module.exports = {
       "Attachment",
       req.body.language
     ).invoice(req.file);
+  },
+  validateEmail: async function (req, res, next) {
+    let user = await userModel.validateEmail(req.con, req.body);
+    if (user instanceof Error) {
+      logger.error({
+        message: `STATUS 500 | DATABASE ERROR | ${user.message}`,
+      });
+      next(createError(500, `${user.message}`));
+    } else if (user.length == 0) {
+      logger.info({
+        message: `STATUS 204 | NO CONTENT | User ${req.body.email} doesn't exist`,
+      });
+      res.status(204);
+    } else {
+      logger.info({
+        message: `STATUS 200 | OK | User ${req.body.email} was sucessfully consulted`,
+      });
+    }
+    res.json(user);
   },
 };
