@@ -5,9 +5,6 @@ const Lob = require("lob")(process.env.LOB_API_KEY);
 
 module.exports = {
   test: async function (req, res, next) {
-    //console.log(body);
-    console.log(req.body);
-
     let addressVerification = await Lob.usVerifications.verify(
       {
         primary_line: req.body.primary_line,
@@ -15,9 +12,8 @@ module.exports = {
         state: req.body.state,
         zip_code: req.body.zip_code,
       },
-      (err, res) => {
+      (err) => {
         logger.error(err);
-        console.log(res);
       }
     );
     if (
