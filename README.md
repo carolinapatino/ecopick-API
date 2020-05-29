@@ -41,8 +41,8 @@ npm run dev
 
 ### Dependencias
 
+- @sendgrid/mail: ^7.1.1
 - axios: ^0.19.2
-- @sendgrid/mail: ^7.1.0
 - body-parser: ^1.19.0
 - compression: ^1.7.4
 - cors: ^2.8.5
@@ -53,22 +53,22 @@ npm run dev
 - humps: ^2.0.1
 - jwt-simple: ^0.5.6
 - lob: ^6.1.0
-- moment: ^2.24.0
+- moment: ^2.26.0
 - multer: ^1.4.2
-- node-telegram-bot-api: ^0.40.0
-- pg-promise: ^10.5.2
+- node-telegram-bot-api: ^0.50.0
+- pg-promise: ^10.5.6
 - winston: ^3.2.1
 
 ### Dependencias de desarrollo
 
-- @babel/cli: ^7.8.4
+- @babel/cli: ^7.10.1
 - babel-preset-env: ^1.7.0
-- eslint: ^6.8.0
+- eslint: ^7.1.0
 - eslint-config-prettier: ^6.11.0
 - eslint-plugin-import: ^2.20.2
 - eslint-plugin-prettier: ^3.1.3
-- jest: ^25.4.0
-- nodemon: ^2.0.3
+- jest: ^26.0.1
+- nodemon: ^2.0.4
 - prettier: ^2.0.5
 - superagent: ^5.2.2
 - supertest: ^4.0.2
