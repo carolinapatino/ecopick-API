@@ -14,7 +14,7 @@ Repositorio para el desarrollo de una API REST a ser consumida por la aplicació
 ## Preparación ✔️
 
 1. Crear una base de datos en postgresql
-2. Correr los scripts que se encuentran en config/DB/ en el siguiente orden: create, alter, insert
+2. Correr el script "scripts.sql" que se encuentra en config/DB/
 3. Agregar un archivo .env en el root del proyecto
 
 > Deberá contactar a los desarrolladores para obtener las llaves necesarias para tener acceso completo a todas las funcionalidades.
