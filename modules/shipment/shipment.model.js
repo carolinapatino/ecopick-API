@@ -15,7 +15,6 @@ module.exports = {
         return new Error(error);
       });
   },
-  //Obtener envios dado un usuario
   getShipmentbyUser: function (con, userId) {
     return con
       .query(
@@ -35,7 +34,7 @@ module.exports = {
           LEFT OUTER JOIN LAST_STOP AS LS ON SH.SH_ID = LS.SHIPMENT
           LEFT OUTER JOIN MP_STOP AS SP ON LS.STOP_DATE = SP.ST_DATE AND LS.SHIPMENT = SP.ST_FK_SHIPMENT
           LEFT OUTER JOIN MP_STATUS AS ST ON SP.ST_FK_STATUS = ST.ST_ID
-          WHERE O.OF_ID = SH.SH_FK_OFFICE_ORIGIN AND U.US_ID = $1
+          WHERE O.OF_ID = SH.SH_FK_OFFICE_ORIGIN AND U.US_ID = SH.SH_FK_USER AND U.US_ID = $1
         ORDER BY stop DESC;`,
         [userId]
       )
@@ -43,8 +42,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
-  // Insertar envio
   createShipment: function (con, body, receiver, direction) {
     return con
       .query(
@@ -63,7 +60,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentRoute: function (con, trackingId) {
     return con
       .query(
@@ -79,7 +75,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentOrigin: function (con, trackingId) {
     return con
       .query(
@@ -92,7 +87,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentDestination: function (con, trackingId) {
     return con
       .query(
@@ -105,7 +99,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentReceiver: function (con, trackingId) {
     return con
       .query(
@@ -119,7 +112,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentPackages: function (con, trackingId) {
     return con
       .query(
@@ -132,7 +124,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentOptions: function (con, trackingId) {
     return con
       .query(
@@ -145,7 +136,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentDiscounts: function (con, trackingId) {
     return con
       .query(

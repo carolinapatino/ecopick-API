@@ -69,7 +69,7 @@ module.exports = class Email {
   }
 
   async discountAnnouncement(discount) {
-    this.data.announcement.resume = `${discount}`;
+    this.data.announcement.resume = `${discount}%`;
     await this.translateEmail(this.language, this.purpose, null);
     const msg = {
       to: this.userEmail,

@@ -13,7 +13,7 @@ function createToken(user) {
 
 function validateToken(req, res, next) {
   if (!req.headers.authorization) {
-    return res.status(403).send({ message: "Acceso denegado" });
+    return res.status(403).send({ message: "Access denied" });
   }
 
   const token = req.headers.authorization.split(" ")[1];
@@ -22,7 +22,7 @@ function validateToken(req, res, next) {
   const actualDate = new Date(moment());
 
   if (tokenExp <= actualDate) {
-    return res.status(401).send({ message: "Token expirado" });
+    return res.status(401).send({ message: "Token expired" });
   }
 
   req.user_id = payload.user_id;

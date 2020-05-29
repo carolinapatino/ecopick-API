@@ -95,6 +95,12 @@ bot.onText(/\/detail (.+)/, function (msg, match) {
       logger.info({ message: "BOT | /DETAIL ORDER ERROR: UNKNOWN ORDER" });
     } else if (!error && response.statusCode == 200) {
       let detail = JSON.parse(body);
+      let arrival;
+      if (detail[0].arrival == null) {
+        arrival = "";
+      } else {
+        arrival = moment(detail[0].arrival).format("MM/DD/YYYY HH:mm:ss");
+      }
       bot.sendMessage(
         chatId,
         "Tracking ID: " +
@@ -104,7 +110,7 @@ bot.onText(/\/detail (.+)/, function (msg, match) {
           moment(detail[0].delivered).format("MM/DD/YYYY HH:mm:ss") +
           "\n" +
           "Arrival date: " +
-          moment(detail[0].arrival).format("MM/DD/YYYY HH:mm:ss") +
+          arrival +
           "\n" +
           "Amount: " +
           detail[0].amount +
