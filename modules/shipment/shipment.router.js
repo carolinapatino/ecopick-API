@@ -4,11 +4,7 @@ const shipmentController = require("./shipment.controller");
 const auth = require("../../middleware/auth");
 
 router.get("/:trackingId", shipmentController.getShipment);
-router.get(
-  "/byUser/:userId",
-  /*auth.validateToken,*/
-  shipmentController.getShipmentbyUser
-);
+router.get("/byUser/:userId", shipmentController.getShipmentbyUser);
 router.post("/", shipmentController.createOrder);
 
 router.get("/:trackingId/route", shipmentController.getShipmentRoute);

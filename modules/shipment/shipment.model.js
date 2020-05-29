@@ -15,7 +15,6 @@ module.exports = {
         return new Error(error);
       });
   },
-  //Obtener envios dado un usuario
   getShipmentbyUser: function (con, userId) {
     return con
       .query(
@@ -43,8 +42,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
-  // Insertar envio
   createShipment: function (con, body, receiver, direction) {
     return con
       .query(
@@ -63,7 +60,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentRoute: function (con, trackingId) {
     return con
       .query(
@@ -79,7 +75,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentOrigin: function (con, trackingId) {
     return con
       .query(
@@ -92,7 +87,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentDestination: function (con, trackingId) {
     return con
       .query(
@@ -105,7 +99,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentReceiver: function (con, trackingId) {
     return con
       .query(
@@ -119,7 +112,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentPackages: function (con, trackingId) {
     return con
       .query(
@@ -132,7 +124,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentOptions: function (con, trackingId) {
     return con
       .query(
@@ -145,7 +136,6 @@ module.exports = {
         return new Error(error);
       });
   },
-
   getShipmentDiscounts: function (con, trackingId) {
     return con
       .query(

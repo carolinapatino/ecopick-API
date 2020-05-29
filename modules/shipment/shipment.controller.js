@@ -32,7 +32,6 @@ module.exports = {
     }
     res.json(results);
   },
-  //CONSULTAR ENVIO POR USUARIO
   getShipmentbyUser: async function (req, res, next) {
     let results = await shipmentModel.getShipmentbyUser(
       req.con,
@@ -56,8 +55,6 @@ module.exports = {
     res.json(results);
   },
 
-  //REGISTRAR ENVIO
-
   createOrder: async function (req, res, next) {
     let receiver = await receiverModel.createReceiver(
       req.con,
@@ -69,7 +66,7 @@ module.exports = {
       });
       next(createError(500, `${receiver.message}`));
     }
-    //Se inserta una dirección y retorna su ID
+
     let direction = await directionModel.createDirection(
       req.con,
       req.body.direction
